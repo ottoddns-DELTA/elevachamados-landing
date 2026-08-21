@@ -229,6 +229,11 @@
   .view-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(24px, 3vw, 34px); letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
   .view-body { font-size: 15px; color: var(--text-muted); max-width: 62ch; margin: 14px 0 0; }
 
+  .legal-text { max-width: 70ch; }
+  .legal-text p { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; margin: 0 0 16px; }
+  .legal-text p:first-of-type { color: var(--text); font-weight: 500; }
+  .legal-updated { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); margin: 0 0 22px; }
+
   .segments-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
   @media (max-width: 720px) { .segments-grid { grid-template-columns: 1fr; } }
   .segment-cell { background: var(--bg); padding: 20px 20px; }
@@ -491,12 +496,52 @@
     </div>
   </section>
 
+  <section class="view" data-view="termos">
+    <div class="scrollable">
+      <div class="view-head">
+        <p class="view-kicker">Legal</p>
+        <h2 class="view-title">Termos de Uso</h2>
+      </div>
+      <div class="legal-text">
+        <p class="legal-updated">Última atualização: 21/08/2026</p>
+        <p>Ao utilizar esta plataforma, você concorda com os presentes Termos de Uso.</p>
+        <p>O ElevaChamados é uma plataforma online destinada ao registro, acompanhamento e gerenciamento de chamados, ordens de serviço e tarefas operacionais, atendendo diferentes segmentos (condomínios, assistência técnica, suporte de TI, operações gerais).</p>
+        <p>O acesso ao sistema é realizado mediante credenciais fornecidas pelo administrador da empresa contratante. O usuário é responsável por manter sua senha em sigilo, não compartilhar seu acesso e utilizar a plataforma apenas para fins legítimos.</p>
+        <p>Todas as informações registradas no sistema poderão ser armazenadas para fins de histórico, auditoria e rastreabilidade operacional, incluindo chamados, comentários, status, datas, imagens anexadas e identificação dos usuários responsáveis. Os dados de cada empresa contratante são isolados e não compartilhados entre clientes da plataforma.</p>
+        <p>O ElevaChamados busca manter alta disponibilidade, mas não garante funcionamento ininterrupto. Poderão ocorrer atualizações, manutenções programadas ou interrupções por fatores externos.</p>
+        <p>Dúvidas ou solicitações: <a href="mailto:suporte@elevachamados.com.br" style="color: var(--accent);">suporte@elevachamados.com.br</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" data-view="privacidade">
+    <div class="scrollable">
+      <div class="view-head">
+        <p class="view-kicker">Legal</p>
+        <h2 class="view-title">Política de Privacidade</h2>
+      </div>
+      <div class="legal-text">
+        <p class="legal-updated">Última atualização: 21/08/2026</p>
+        <p>Esta Política descreve como os dados são tratados dentro do ElevaChamados.</p>
+        <p>Podem ser coletados dados de acesso, dados operacionais, dados técnicos, registros de auditoria, chamados, descrições, status, comentários e imagens anexadas.</p>
+        <p>Os dados são utilizados para permitir o funcionamento da plataforma, identificar usuários, registrar atividades, melhorar a experiência de uso, garantir segurança e cumprir obrigações legais. Os dados de cada empresa contratante ficam isolados das demais empresas que usam a plataforma.</p>
+        <p>Os dados não são vendidos. Poderão ser compartilhados apenas com provedores de hospedagem e infraestrutura necessários ao funcionamento da plataforma, quando exigido por lei ou mediante determinação judicial.</p>
+        <p>Nos termos da LGPD, o titular poderá solicitar confirmação do tratamento, acesso, correção, exclusão quando aplicável e informações sobre o tratamento realizado.</p>
+        <p>Solicitações relacionadas a privacidade: <a href="mailto:suporte@elevachamados.com.br" style="color: var(--accent);">suporte@elevachamados.com.br</a></p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
   <div class="foot-row">
     <span>elevachamados.com.br</span>
-    <span>© ElevaChamados</span>
+    <div style="display: flex; gap: 14px; align-items: center;">
+      <button class="foot-link" data-view="termos" style="background: none; border: none; color: inherit; font: inherit; cursor: pointer; padding: 0;">Termos de Uso</button>
+      <button class="foot-link" data-view="privacidade" style="background: none; border: none; color: inherit; font: inherit; cursor: pointer; padding: 0;">Política de Privacidade</button>
+      <span>© ElevaChamados</span>
+    </div>
   </div>
 </footer>
 
@@ -571,15 +616,18 @@
     }
 
     var navBtns = Array.prototype.slice.call(document.querySelectorAll(".navbtn[data-view]"));
-    var ghostViewBtns = Array.prototype.slice.call(document.querySelectorAll("[data-view].btn-ghost"));
+    var todosOsBotoesDeView = Array.prototype.slice.call(document.querySelectorAll("[data-view]")).filter(function (el) {
+      return el.tagName === "BUTTON" || el.tagName === "A";
+    });
     var views = Array.prototype.slice.call(document.querySelectorAll(".view[data-view]"));
 
     function irPara(nome) {
       views.forEach(function (v) { v.classList.toggle("is-active", v.getAttribute("data-view") === nome); });
       navBtns.forEach(function (b) { b.classList.toggle("is-active", b.getAttribute("data-view") === nome); });
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
 
-    navBtns.concat(ghostViewBtns).forEach(function (btn) {
+    todosOsBotoesDeView.forEach(function (btn) {
       btn.addEventListener("click", function () { irPara(btn.getAttribute("data-view")); });
     });
 
