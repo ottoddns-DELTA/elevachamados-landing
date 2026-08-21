@@ -54,26 +54,48 @@
   .cosmos { position: fixed; inset: 0; z-index: 0; }
   .cosmos .blob-a, .cosmos .blob-b {
     position: absolute; border-radius: 50%; filter: blur(70px);
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .cosmos .blob-a { width: 640px; height: 640px; left: -6%; top: -10%; background: radial-gradient(circle, var(--nebula-cool), transparent 68%); }
   .cosmos .blob-b { width: 560px; height: 560px; right: -8%; bottom: -12%; background: radial-gradient(circle, var(--nebula-warm), transparent 68%); }
-  .cosmos .stars { position: absolute; inset: 0; }
+  .cosmos .stars { position: absolute; inset: 0; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
   .cosmos .stars span {
     position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff;
     animation: twinkle 4.5s ease-in-out infinite;
   }
   @keyframes twinkle { 0%, 100% { opacity: 0.12; } 50% { opacity: 0.8; } }
 
-  /* Constelacao movida pro canto superior direito, como um selo decorativo
-     discreto (nao mais atras do hero inteiro). So a bolinha orbitando anima -
+  /* Cometas ocasionais cruzando o ceu - raros de proposito, nao chuva de
+     meteoro. Nascem via JS num angulo/posicao aleatoria e se auto-removem. */
+  .comet-wrap { position: absolute; z-index: 1; }
+  .comet-core {
+    position: relative; width: 3px; height: 3px; border-radius: 50%; background: #fff;
+    box-shadow: 0 0 8px 2px rgba(255,255,255,0.9), 0 0 20px 4px rgba(255,138,61,0.35);
+    animation: cometMove 1.7s ease-in forwards;
+  }
+  .comet-core::before {
+    content: ""; position: absolute; top: 50%; right: 100%; width: 130px; height: 1.4px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.65));
+    transform: translateY(-50%);
+  }
+  @keyframes cometMove {
+    0% { transform: translateX(0); opacity: 0; }
+    12% { opacity: 1; }
+    78% { opacity: 1; }
+    100% { transform: translateX(300px); opacity: 0; }
+  }
+
+  /* Ancorada atras do card do painel (device-stack fica em z-index 10, o
+     cosmos em 0) - o triangulo nasce por tras da moldura do browser em vez
+     de flutuar sozinho no vazio acima dele. So a bolinha orbitando anima -
      os 3 vertices do triangulo ficam com brilho fixo, sem pulsar. */
-  .constellation { position: absolute; right: 2%; top: 4%; width: min(20vw, 230px); opacity: 0.85; pointer-events: none; }
+  .constellation { position: absolute; right: 7%; top: 11%; width: min(17vw, 195px); opacity: 0.85; pointer-events: none; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
   .constellation svg { width: 100%; height: auto; overflow: visible; }
   .cx-line { stroke: var(--accent); stroke-width: 1; opacity: 0.4; fill: none; }
   .cx-line-dim { stroke: var(--text-faint); stroke-width: 0.6; opacity: 0.3; }
   .cx-star-dim { fill: #fff; opacity: 0.5; }
   .cx-orbit { fill: var(--accent); filter: drop-shadow(0 0 5px var(--accent)); }
-  @media (max-width: 900px) { .constellation { width: min(28vw, 150px); opacity: 0.6; top: 2%; } }
+  @media (max-width: 900px) { .constellation { width: min(28vw, 150px); opacity: 0.6; top: 2%; right: 4%; } }
 
   /* ---------- nav (pills no topo, sem sidebar) ---------- */
   nav.top { position: relative; z-index: 20; padding: 18px 20px 0; }
@@ -487,6 +509,58 @@
     if (reduzMovimento) {
       var orbit = document.getElementById("orbitmotion");
       if (orbit) orbit.setAttribute("repeatCount", "0");
+    }
+
+    // ---- parallax passivo (segue o cursor, sem precisar arrastar) ----
+    if (!reduzMovimento) {
+      var blobA = document.querySelector(".blob-a");
+      var blobB = document.querySelector(".blob-b");
+      var starsLayer = document.getElementById("stars");
+      var constelacao = document.querySelector(".constellation");
+      var parallaxPendente = false;
+
+      document.addEventListener("mousemove", function (e) {
+        if (parallaxPendente) return;
+        parallaxPendente = true;
+        requestAnimationFrame(function () {
+          var x = (e.clientX / window.innerWidth - 0.5) * 2;
+          var y = (e.clientY / window.innerHeight - 0.5) * 2;
+          blobA.style.transform = "translate(" + (x * 9) + "px, " + (y * 9) + "px)";
+          blobB.style.transform = "translate(" + (x * -11) + "px, " + (y * -11) + "px)";
+          starsLayer.style.transform = "translate(" + (x * 5) + "px, " + (y * 5) + "px)";
+          constelacao.style.transform = "translate(" + (x * 17) + "px, " + (y * 17) + "px)";
+          parallaxPendente = false;
+        });
+      });
+    }
+
+    // ---- cometas ocasionais, raros de proposito ----
+    if (!reduzMovimento) {
+      function lancarCometa() {
+        var wrap = document.createElement("div");
+        wrap.className = "comet-wrap";
+        var angulo = 18 + Math.random() * 26; // 18-44 graus, sempre descendo pra direita
+        var left = 10 + Math.random() * 55; // nasce na faixa esquerda/central do ceu
+        var top = 4 + Math.random() * 34; // faixa superior do ceu
+        wrap.style.left = left + "%";
+        wrap.style.top = top + "%";
+        wrap.style.transform = "rotate(" + angulo + "deg)";
+        var nucleo = document.createElement("div");
+        nucleo.className = "comet-core";
+        wrap.appendChild(nucleo);
+        document.querySelector(".cosmos").appendChild(wrap);
+        setTimeout(function () { wrap.remove(); }, 1800);
+      }
+
+      function agendarProximoCometa() {
+        var espera = 9000 + Math.random() * 8000; // a cada 9-17s, raro de proposito
+        setTimeout(function () {
+          lancarCometa();
+          agendarProximoCometa();
+        }, espera);
+      }
+
+      agendarProximoCometa();
     }
 
     var navBtns = Array.prototype.slice.call(document.querySelectorAll(".navbtn[data-view]"));
