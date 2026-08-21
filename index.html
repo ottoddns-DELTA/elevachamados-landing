@@ -64,17 +64,16 @@
   }
   @keyframes twinkle { 0%, 100% { opacity: 0.12; } 50% { opacity: 0.8; } }
 
-  .constellation { position: absolute; right: 4%; top: 50%; transform: translateY(-50%); width: min(46vw, 620px); opacity: 0.9; }
+  /* Constelacao movida pro canto superior direito, como um selo decorativo
+     discreto (nao mais atras do hero inteiro). So a bolinha orbitando anima -
+     os 3 vertices do triangulo ficam com brilho fixo, sem pulsar. */
+  .constellation { position: absolute; right: 2%; top: 4%; width: min(20vw, 230px); opacity: 0.85; pointer-events: none; }
   .constellation svg { width: 100%; height: auto; overflow: visible; }
   .cx-line { stroke: var(--accent); stroke-width: 1; opacity: 0.4; fill: none; }
   .cx-line-dim { stroke: var(--text-faint); stroke-width: 0.6; opacity: 0.3; }
   .cx-star-dim { fill: #fff; opacity: 0.5; }
-  .cx-glow { animation: pulse 3.2s ease-in-out infinite; transform-origin: center; }
-  .cx-star.n2 .cx-glow { animation-delay: 0.9s; }
-  .cx-star.n3 .cx-glow { animation-delay: 1.8s; }
-  @keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.4); } }
   .cx-orbit { fill: var(--accent); filter: drop-shadow(0 0 5px var(--accent)); }
-  @media (max-width: 900px) { .constellation { opacity: 0.35; right: -10%; } }
+  @media (max-width: 900px) { .constellation { width: min(28vw, 150px); opacity: 0.6; top: 2%; } }
 
   /* ---------- nav (pills no topo, sem sidebar) ---------- */
   nav.top { position: relative; z-index: 20; padding: 18px 20px 0; }
@@ -151,13 +150,49 @@
   .segpill:hover { color: var(--text); border-color: var(--text-faint); }
   .segpill[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 
-  /* ===== ilustracao: pessoa organizando chamados ===== */
-  .illustration { display: flex; justify-content: center; }
-  .illustration svg { width: 100%; max-width: 420px; height: auto; }
-  .ill-float { animation: bob 5s ease-in-out infinite; transform-origin: center; }
-  .ill-float.f2 { animation-delay: 1.2s; }
-  .ill-float.f3 { animation-delay: 2.4s; }
-  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+  /* ===== composicao de telas: painel web + app mobile, recriando as telas
+     reais do produto (nao e screenshot bruto, e a mesma UI reconstruida) ===== */
+  .device-stack { position: relative; display: flex; justify-content: center; padding: 10px 34px 46px 10px; }
+  .browser-card {
+    width: 100%; max-width: 440px; background: #0B0D14; border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 46px 90px -30px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.02);
+  }
+  .browser-chrome { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: #0F111A; border-bottom: 1px solid var(--border); }
+  .browser-chrome .dot { width: 7px; height: 7px; border-radius: 50%; background: #2A2D3E; }
+  .browser-chrome .urlbar { margin-left: 8px; flex: 1; background: #171923; border-radius: 6px; padding: 4px 10px; font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); }
+  .browser-body { display: flex; min-height: 264px; }
+  .b-sidebar { width: 122px; flex: none; background: #0D0F17; border-right: 1px solid var(--border); padding: 14px 9px; }
+  .b-brand { display: flex; align-items: center; gap: 5px; font-family: var(--font-display); font-weight: 700; font-size: 11px; margin: 0 0 14px; }
+  .b-brand .mark { color: var(--accent); }
+  .b-navitem { font-size: 10.5px; color: var(--text-muted); padding: 6px 8px; border-radius: 6px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 1px; }
+  .b-navitem.active { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--text); font-weight: 600; }
+  .b-count { font-family: var(--font-mono); font-size: 9px; padding: 1px 5px; border-radius: 999px; background: var(--surface-2); color: var(--text-faint); }
+  .b-navitem.active .b-count { background: var(--accent); color: var(--accent-ink); }
+  .b-main { flex: 1; padding: 14px; min-width: 0; }
+  .b-hello { font-family: var(--font-display); font-size: 12px; font-weight: 600; margin: 0 0 10px; }
+  .b-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-bottom: 9px; }
+  .b-stat { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 8px; }
+  .b-stat .num { font-family: var(--font-display); font-size: 15px; font-weight: 700; line-height: 1; }
+  .b-stat .lbl { font-size: 7.5px; color: var(--text-faint); margin-top: 3px; }
+  .b-chart { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+  .b-chart .lbl { font-size: 9px; color: var(--text-faint); margin: 0 0 8px; }
+  .b-bars { display: flex; align-items: flex-end; gap: 4px; height: 40px; }
+  .b-bars span { flex: 1; background: var(--accent); opacity: 0.7; border-radius: 2px 2px 0 0; }
+
+  .phone-card {
+    position: absolute; right: -2%; bottom: -4%; width: 128px; background: #0B0D14;
+    border: 1px solid var(--border); border-radius: 20px; padding: 9px 8px;
+    box-shadow: 0 30px 60px -22px rgba(0,0,0,0.8);
+  }
+  .phone-notch { width: 38px; height: 4px; background: #23253A; border-radius: 3px; margin: 0 auto 9px; }
+  .phone-ticket { background: var(--surface); border-radius: 8px; padding: 7px 8px; margin-bottom: 6px; border-left: 2px solid var(--accent); }
+  .phone-ticket:last-child { margin-bottom: 0; }
+  .pt-status { font-size: 6.5px; padding: 1px 5px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 22%, transparent); color: var(--accent); display: inline-block; margin-bottom: 3px; font-weight: 600; }
+  .pt-title { font-size: 8px; font-weight: 600; color: var(--text); }
+  .pt-meta { font-size: 6.5px; color: var(--text-faint); margin-top: 2px; }
+
+  @media (max-width: 900px) { .device-stack { padding: 30px 24px 10px; } .phone-card { right: 4%; } }
 
   /* ===== views secundarias ===== */
   .view-head { max-width: 640px; margin: 0 0 34px; }
@@ -261,6 +296,11 @@
         <p class="hero-mission">Tirar a gestão de chamados do WhatsApp.</p>
         <p class="hero-lede">Painel web, app mobile e abertura por voz — com os termos da tela, a logo e a cor ajustados pra sua empresa.</p>
 
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="#">Falar com a gente</a>
+          <button class="btn btn-ghost btn-lg" data-view="como-funciona">Ver como funciona</button>
+        </div>
+
         <div class="ticker">
           <span class="tk-id" id="tk-id">#0142</span>
           <span class="tk-status" id="tk-status">Em andamento</span>
@@ -273,53 +313,60 @@
         </div>
       </div>
 
-      <div class="illustration">
-        <svg viewBox="0 0 360 380" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustração de um técnico organizando chamados num painel">
-          <rect x="120" y="40" width="210" height="270" rx="16" fill="#12141F" stroke="#23253A" />
-          <rect x="140" y="66" width="170" height="34" rx="9" fill="#191C2B" />
-          <circle cx="158" cy="83" r="5" fill="#FF8A3D" />
-          <rect x="174" y="77" width="110" height="5" rx="2.5" fill="#3A3D52" />
-          <rect x="174" y="88" width="70" height="4" rx="2" fill="#282B3D" />
+      <div class="device-stack">
+        <div class="browser-card" role="img" aria-label="Painel web do ElevaChamados mostrando o dashboard com chamados, ordens de serviço e atendimento mensal">
+          <div class="browser-chrome">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="urlbar">app.elevachamados.com.br</span>
+          </div>
+          <div class="browser-body">
+            <div class="b-sidebar">
+              <p class="b-brand"><span class="mark">△</span>Eleva</p>
+              <div class="b-navitem active">Painel</div>
+              <div class="b-navitem">Em Aberto <span class="b-count">3</span></div>
+              <div class="b-navitem">Em Andamento <span class="b-count">2</span></div>
+              <div class="b-navitem">Urgentes <span class="b-count">1</span></div>
+              <div class="b-navitem">Resolvidos</div>
+              <div class="b-navitem">Agenda</div>
+            </div>
+            <div class="b-main">
+              <p class="b-hello">Boa tarde 👋</p>
+              <div class="b-stats">
+                <div class="b-stat"><p class="num">3</p><p class="lbl">Abertos agora</p></div>
+                <div class="b-stat"><p class="num">2</p><p class="lbl">OS ativas</p></div>
+                <div class="b-stat"><p class="num">0</p><p class="lbl">Pendentes</p></div>
+                <div class="b-stat"><p class="num">38</p><p class="lbl">Resolvidos/mês</p></div>
+              </div>
+              <div class="b-chart">
+                <p class="lbl">Atendimento mensal</p>
+                <div class="b-bars">
+                  <span style="height:40%"></span><span style="height:65%"></span><span style="height:50%"></span>
+                  <span style="height:85%"></span><span style="height:60%"></span><span style="height:100%"></span>
+                  <span style="height:72%"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <rect x="140" y="112" width="170" height="34" rx="9" fill="#191C2B" />
-          <circle cx="158" cy="129" r="5" fill="#8C7BFF" />
-          <rect x="174" y="123" width="90" height="5" rx="2.5" fill="#3A3D52" />
-          <rect x="174" y="134" width="60" height="4" rx="2" fill="#282B3D" />
-
-          <rect x="140" y="158" width="170" height="34" rx="9" fill="#0E1018" stroke="#FF8A3D" stroke-width="1.4" />
-          <circle cx="158" cy="175" r="5" fill="#FF8A3D" />
-          <rect x="174" y="169" width="100" height="5" rx="2.5" fill="#F4F2EC" opacity="0.8" />
-          <rect x="174" y="180" width="65" height="4" rx="2" fill="#3A3D52" />
-
-          <rect x="140" y="204" width="170" height="34" rx="9" fill="#191C2B" opacity="0.6" />
-          <circle cx="158" cy="221" r="5" fill="#3FBF7F" />
-          <rect x="174" y="215" width="80" height="5" rx="2.5" fill="#3A3D52" />
-
-          <g class="ill-float f1">
-            <rect x="196" y="238" width="118" height="40" rx="10" fill="#1A1D2C" stroke="#FF8A3D" stroke-width="1.6" />
-            <circle cx="214" cy="258" r="5.5" fill="#FF8A3D" />
-            <rect x="230" y="251" width="70" height="5" rx="2.5" fill="#F4F2EC" />
-            <rect x="230" y="262" width="46" height="4" rx="2" fill="#8991A3" />
-          </g>
-
-          <g transform="translate(20 150)">
-            <ellipse cx="70" cy="230" rx="46" ry="10" fill="#000" opacity="0.25" />
-            <rect x="46" y="120" width="48" height="96" rx="20" fill="#191C2B" />
-            <circle cx="70" cy="96" r="26" fill="#2A2E44" />
-            <path d="M70 118 C 40 118, 30 150, 34 190" stroke="#FF8A3D" stroke-width="10" stroke-linecap="round" fill="none" />
-            <path d="M92 130 C 118 118, 128 88, 118 58" stroke="#2A2E44" stroke-width="12" stroke-linecap="round" fill="none" />
-            <circle cx="118" cy="56" r="7" fill="#FF8A3D" />
-          </g>
-
-          <g class="ill-float f2" transform="translate(300 60)">
-            <circle r="16" fill="#191C2B" stroke="#23253A" />
-            <path d="M-6 0 L-2 5 L7 -6" stroke="#3FBF7F" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-          </g>
-          <g class="ill-float f3" transform="translate(30 60)">
-            <circle r="12" fill="#191C2B" stroke="#23253A" />
-            <path d="M0 -5 V5 M-5 0 H5" stroke="#8C7BFF" stroke-width="2.2" stroke-linecap="round" />
-          </g>
-        </svg>
+        <div class="phone-card" role="img" aria-label="App mobile do ElevaChamados mostrando a lista de chamados">
+          <div class="phone-notch"></div>
+          <div class="phone-ticket">
+            <span class="pt-status">Urgente</span>
+            <p class="pt-title">Interfone sem sinal</p>
+            <p class="pt-meta">Edifício Aurora</p>
+          </div>
+          <div class="phone-ticket">
+            <span class="pt-status">Em andamento</span>
+            <p class="pt-title">Troca de leitor facial</p>
+            <p class="pt-meta">Bosque das Palmeiras</p>
+          </div>
+          <div class="phone-ticket">
+            <span class="pt-status">Aberto</span>
+            <p class="pt-title">Vazamento na garagem</p>
+            <p class="pt-meta">Vila Bela Vista</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
