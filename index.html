@@ -285,32 +285,95 @@
   .bot-step h3 { font-family: var(--font-display); font-size: 14.5px; font-weight: 600; margin: 0 0 4px; }
   .bot-step p { font-size: 13px; color: var(--text-muted); margin: 0; max-width: 44ch; }
 
-  .bot-stage { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 10px 0; }
+  .bot-stage { position: relative; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 10px 0; }
 
-  .wa-phone {
-    width: 100%; max-width: 270px; background: #0B0D14; border: 1px solid var(--border);
-    border-radius: 28px; padding: 9px; box-shadow: 0 40px 80px -26px rgba(0,0,0,0.8);
+  /* chassi tipo iPhone - a UI de dentro anima em loop quando a aba fica ativa */
+  .iphone {
+    position: relative; width: 252px; padding: 12px;
+    background: linear-gradient(150deg, #9a9aa0 0%, #6c6c72 12%, #3a3a3e 30%, #232326 60%, #3a3a3e 88%, #8a8a90 100%);
+    border-radius: 58px;
+    box-shadow: 0 46px 90px -28px rgba(0,0,0,0.85), inset 0 0 0 1px rgba(0,0,0,0.5), inset 0 1.5px 2px rgba(255,255,255,0.35);
   }
-  .wa-screen { background: #0C0E17; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; height: 380px; }
-  .wa-head { display: flex; align-items: center; gap: 8px; padding: 12px 12px 10px; background: var(--surface); border-bottom: 1px solid var(--border); }
+  .iphone .side-btn { position: absolute; background: linear-gradient(90deg, #8a8a90, #3a3a3e); box-shadow: inset 0 0 0 1px rgba(0,0,0,0.4); }
+  .iphone .side-btn.mute { left: -4px; top: 108px; width: 4px; height: 22px; border-radius: 2px 0 0 2px; }
+  .iphone .side-btn.vol-up { left: -4px; top: 146px; width: 4px; height: 42px; border-radius: 2px 0 0 2px; }
+  .iphone .side-btn.vol-down { left: -4px; top: 196px; width: 4px; height: 42px; border-radius: 2px 0 0 2px; }
+  .iphone .side-btn.power { right: -4px; top: 158px; width: 4px; height: 66px; border-radius: 0 2px 2px 0; }
+
+  .iphone-screen {
+    position: relative; background: #0C0E17; border-radius: 47px; overflow: hidden;
+    height: 460px; display: flex; flex-direction: column; box-shadow: inset 0 0 0 1.5px #000;
+  }
+
+  .notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 126px; height: 28px; background: #000; border-radius: 0 0 18px 18px; z-index: 6;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .notch .cam { width: 9px; height: 9px; border-radius: 50%; background: #101014; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }
+  .notch .spk { width: 34px; height: 5px; border-radius: 3px; background: #101014; }
+
+  .status-bar {
+    flex: none; display: flex; align-items: center; justify-content: space-between;
+    padding: 17px 24px 4px; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: #fff;
+  }
+  .status-icons { display: flex; align-items: center; gap: 4px; }
+  .status-icons svg { display: block; }
+
+  .home-indicator {
+    position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 4px; border-radius: 3px; background: rgba(255,255,255,0.32); z-index: 6;
+  }
+
+  .wa-head { display: flex; align-items: center; gap: 8px; padding: 8px 14px 10px; background: var(--surface); border-bottom: 1px solid var(--border); flex: none; }
   .wa-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--surface-2); display: flex; align-items: center; justify-content: center; font-size: 12px; flex: none; }
   .wa-title { font-size: 11.5px; font-weight: 600; line-height: 1.2; }
   .wa-sub { font-size: 9.5px; color: var(--text-faint); }
   .wa-body { flex: 1; padding: 12px 10px; display: flex; flex-direction: column; gap: 7px; overflow: hidden; }
-  .wa-msg { max-width: 84%; padding: 7px 10px 6px; border-radius: 11px; border-top-left-radius: 3px; font-size: 11px; line-height: 1.4; background: var(--surface); align-self: flex-start; }
+
+  .wa-msg {
+    max-width: 84%; padding: 7px 10px 6px; border-radius: 11px; border-top-left-radius: 3px;
+    font-size: 11px; line-height: 1.4; background: var(--surface); align-self: flex-start;
+    opacity: 0; transform: translateY(6px) scale(0.98); transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .wa-msg.show { opacity: 1; transform: translateY(0) scale(1); }
   .wa-msg .who { font-size: 9.5px; font-weight: 700; color: var(--accent); margin: 0 0 2px; }
+
+  .wa-typing {
+    align-self: flex-start; display: flex; gap: 4px; padding: 8px 10px; border-radius: 11px;
+    background: var(--surface); opacity: 0; transition: opacity 0.25s ease;
+  }
+  .wa-typing.show { opacity: 1; }
+  .wa-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--text-faint); animation: waBounce 1s ease-in-out infinite; }
+  .wa-typing span:nth-child(2) { animation-delay: 0.15s; }
+  .wa-typing span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes waBounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-3px); opacity: 1; } }
+
   .wa-note {
     align-self: center; margin-top: auto; font-size: 9px; color: var(--text-faint);
     text-align: center; padding-top: 9px; border-top: 1px dashed var(--border);
+    opacity: 0; transition: opacity 0.4s ease;
   }
+  .wa-note.show { opacity: 1; }
+  .wa-note .eye { display: inline-block; animation: waBlink 2.6s ease-in-out infinite; }
+  @keyframes waBlink { 0%, 88%, 100% { opacity: 1; } 92% { opacity: 0.25; } }
 
-  .wa-arrow { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint); text-align: center; }
+  .wa-arrow {
+    font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint); text-align: center;
+    opacity: 0; transition: opacity 0.3s ease;
+  }
+  .wa-arrow.show { opacity: 1; }
   .wa-arrow b { color: var(--accent); font-weight: 500; }
+  .wa-arrow .chevron { display: inline-block; animation: waFall 1.3s ease-in-out infinite; }
+  @keyframes waFall { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(3px); opacity: 1; } }
 
   .wa-alert {
-    width: 100%; max-width: 270px; background: var(--surface); border: 1px solid var(--border);
+    position: relative; width: 100%; max-width: 252px; background: var(--surface); border: 1px solid var(--border);
     border-radius: 16px; padding: 15px 16px 14px; box-shadow: 0 24px 48px -20px rgba(0,0,0,0.6);
+    opacity: 0; transform: translateY(14px) scale(0.96); transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1);
   }
+  .wa-alert.show { opacity: 1; transform: translateY(0) scale(1); }
+
   .wa-alert-tag {
     display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10px;
     letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent);
@@ -320,10 +383,31 @@
   .wa-alert-title { font-family: var(--font-display); font-size: 13.5px; font-weight: 600; margin: 0 0 4px; }
   .wa-alert-meta { font-size: 11px; color: var(--text-muted); margin: 0 0 12px; }
   .wa-alert-menu { display: flex; flex-direction: column; gap: 6px; }
-  .wa-opt { display: flex; align-items: center; gap: 9px; font-size: 12px; padding: 7px 9px; border-radius: 8px; background: var(--bg); border: 1px solid var(--border); color: var(--text-muted); }
+  .wa-opt {
+    display: flex; align-items: center; gap: 9px; font-size: 12px; padding: 7px 9px; border-radius: 8px;
+    background: var(--bg); border: 1px solid var(--border); color: var(--text-muted);
+    opacity: 0; transform: translateX(-6px); transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+  .wa-opt.show { opacity: 1; transform: translateX(0); }
   .wa-opt b { font-family: var(--font-mono); font-weight: 500; color: var(--text-faint); width: 12px; }
   .wa-opt.picked { background: color-mix(in srgb, var(--accent) 12%, transparent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); color: var(--text); }
   .wa-opt.picked b { color: var(--accent); }
+
+  .tap-ring {
+    position: absolute; width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--accent);
+    pointer-events: none; opacity: 0; z-index: 5;
+  }
+  .tap-ring.ping { animation: waPing 0.6s ease-out; }
+  @keyframes waPing { 0% { opacity: 0.9; transform: scale(0.4); } 100% { opacity: 0; transform: scale(1.8); } }
+
+  .replay-bot {
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 6px;
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
+    background: transparent; border: 1px solid var(--border); border-radius: 999px;
+    padding: 7px 14px; cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .replay-bot:hover { border-color: var(--accent); color: var(--text); }
+  .replay-bot svg { width: 11px; height: 11px; display: block; }
 
   .timeline { position: relative; padding-left: 40px; }
   .timeline::before { content: ""; position: absolute; left: 10px; top: 4px; bottom: 4px; width: 1px; background: var(--border); }
@@ -582,8 +666,21 @@
           </div>
         </div>
         <div class="bot-stage">
-          <div class="wa-phone" role="img" aria-label="Grupo de WhatsApp do condomínio com moradores reclamando de um problema">
-            <div class="wa-screen">
+          <div class="iphone" role="img" aria-label="Animação: grupo de WhatsApp do condomínio recebendo reclamações de moradores, e o alerta privado chegando pro síndico">
+            <div class="side-btn mute"></div>
+            <div class="side-btn vol-up"></div>
+            <div class="side-btn vol-down"></div>
+            <div class="side-btn power"></div>
+            <div class="iphone-screen">
+              <div class="notch"><span class="spk"></span><span class="cam"></span></div>
+              <div class="status-bar">
+                <span>21:47</span>
+                <span class="status-icons">
+                  <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="6" width="2.4" height="5" rx="0.6" fill="#fff"/><rect x="4" y="4" width="2.4" height="7" rx="0.6" fill="#fff"/><rect x="8" y="2" width="2.4" height="9" rx="0.6" fill="#fff"/><rect x="12" y="0" width="2.4" height="11" rx="0.6" fill="#fff"/></svg>
+                  <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 9.5a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Z" fill="#fff"/><path d="M4.3 6.2a4.6 4.6 0 0 1 6.4 0" stroke="#fff" stroke-width="1.3" stroke-linecap="round" fill="none"/><path d="M1.8 3.6a8.2 8.2 0 0 1 11.4 0" stroke="#fff" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>
+                  <svg width="24" height="11" viewBox="0 0 24 11" fill="none"><rect x="0.75" y="0.75" width="19.5" height="9.5" rx="2.3" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/><rect x="2.2" y="2.2" width="15" height="6.6" rx="1.3" fill="#fff"/><rect x="21" y="3.3" width="1.6" height="4.4" rx="0.8" fill="#fff" fill-opacity="0.5"/></svg>
+                </span>
+              </div>
               <div class="wa-head">
                 <div class="wa-avatar">🏢</div>
                 <div>
@@ -591,25 +688,34 @@
                   <div class="wa-sub">42 participantes</div>
                 </div>
               </div>
-              <div class="wa-body">
-                <div class="wa-msg"><p class="who">Ana · apto 302</p>o interfone do bloco 2 tá sem sinal desde ontem à noite 😩</div>
-                <div class="wa-msg" style="max-width:70%"><p class="who">Carlos · apto 108</p>aqui tb tá mudo 👍</div>
-                <div class="wa-msg" style="max-width:78%"><p class="who">Regina · apto 610</p>alguém mais reclamou disso semana passada tbm</div>
-                <div class="wa-note">👀 ElevaChamados lendo o grupo por você — ninguém aqui vê isso</div>
+              <div class="wa-body" id="botWaBody">
+                <div class="wa-msg" id="botMsg1"><p class="who">Ana · apto 302</p>o interfone do bloco 2 tá sem sinal desde ontem à noite 😩</div>
+                <div class="wa-typing" id="botTyping2"><span></span><span></span><span></span></div>
+                <div class="wa-msg" id="botMsg2" style="max-width:70%"><p class="who">Carlos · apto 108</p>aqui tb tá mudo 👍</div>
+                <div class="wa-note" id="botNote"><span class="eye">👀</span> ElevaChamados lendo o grupo por você — ninguém aqui vê isso</div>
               </div>
+              <div class="home-indicator"></div>
             </div>
           </div>
-          <p class="wa-arrow">↓ segue só pra <b>você, síndico</b>, em conversa separada</p>
-          <div class="wa-alert">
+
+          <p class="wa-arrow" id="botArrow"><span class="chevron">↓</span> segue só pra <b>você, síndico</b>, em conversa separada</p>
+
+          <div class="wa-alert" id="botAlert">
             <span class="wa-alert-tag">Alerta privado</span>
             <p class="wa-alert-title">Interfone do bloco 2 sem sinal</p>
             <p class="wa-alert-meta">Edifício Aurora · relatado por Ana, apto 302</p>
             <div class="wa-alert-menu">
-              <div class="wa-opt picked"><b>1</b> Abrir chamado</div>
-              <div class="wa-opt"><b>2</b> Já sei, resolvendo</div>
-              <div class="wa-opt"><b>3</b> Ignorar</div>
+              <div class="wa-opt" id="botOpt1"><b>1</b> Abrir chamado</div>
+              <div class="wa-opt" id="botOpt2"><b>2</b> Já sei, resolvendo</div>
+              <div class="wa-opt" id="botOpt3"><b>3</b> Ignorar</div>
             </div>
+            <div class="tap-ring" id="botTapRing"></div>
           </div>
+
+          <button class="replay-bot" id="botReplay" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            Rodar de novo
+          </button>
         </div>
       </div>
     </div>
@@ -772,6 +878,7 @@
       views.forEach(function (v) { v.classList.toggle("is-active", v.getAttribute("data-view") === nome); });
       navBtns.forEach(function (b) { b.classList.toggle("is-active", b.getAttribute("data-view") === nome); });
       window.scrollTo({ top: 0, behavior: "instant" });
+      if (nome === "bot-whatsapp") { iniciarAnimacaoBot(); } else { pararAnimacaoBot(); }
     }
 
     todosOsBotoesDeView.forEach(function (btn) {
@@ -837,6 +944,69 @@
     }
 
     reiniciar();
+
+    // ---- animacao da secao "bot no whatsapp": roda em loop so enquanto a
+    // aba esta ativa, pra nao gastar timers em segundo plano a toa ----
+    var botEls = {
+      msg1: document.getElementById("botMsg1"),
+      typing2: document.getElementById("botTyping2"),
+      msg2: document.getElementById("botMsg2"),
+      note: document.getElementById("botNote"),
+      arrow: document.getElementById("botArrow"),
+      alert: document.getElementById("botAlert"),
+      opt1: document.getElementById("botOpt1"),
+      opt2: document.getElementById("botOpt2"),
+      opt3: document.getElementById("botOpt3"),
+      tapRing: document.getElementById("botTapRing"),
+    };
+    var botTimers = [];
+
+    function botEm(ms, fn) { botTimers.push(setTimeout(fn, ms)); }
+    function botLimparTimers() { botTimers.forEach(clearTimeout); botTimers = []; }
+
+    function botResetar() {
+      botLimparTimers();
+      Object.keys(botEls).forEach(function (k) {
+        if (!botEls[k]) return;
+        botEls[k].classList.remove("show", "picked", "ping");
+      });
+    }
+
+    function botRodar() {
+      botResetar();
+
+      if (reduzMovimento) {
+        Object.keys(botEls).forEach(function (k) {
+          if (k === "typing2" || k === "tapRing" || !botEls[k]) return;
+          botEls[k].classList.add("show");
+        });
+        botEls.opt1.classList.add("picked");
+        return;
+      }
+
+      botEm(300, function () { botEls.msg1.classList.add("show"); });
+      botEm(1300, function () { botEls.typing2.classList.add("show"); });
+      botEm(2400, function () { botEls.typing2.classList.remove("show"); botEls.msg2.classList.add("show"); });
+      botEm(3100, function () { botEls.note.classList.add("show"); });
+      botEm(3900, function () { botEls.arrow.classList.add("show"); });
+      botEm(4400, function () { botEls.alert.classList.add("show"); });
+      botEm(5000, function () { botEls.opt1.classList.add("show"); });
+      botEm(5200, function () { botEls.opt2.classList.add("show"); });
+      botEm(5400, function () { botEls.opt3.classList.add("show"); });
+      botEm(6300, function () {
+        botEls.opt1.classList.add("picked");
+        botEls.tapRing.style.left = "24px";
+        botEls.tapRing.style.top = botEls.opt1.offsetTop + "px";
+        botEls.tapRing.classList.add("ping");
+      });
+      botEm(9200, botRodar);
+    }
+
+    function iniciarAnimacaoBot() { botRodar(); }
+    function pararAnimacaoBot() { botLimparTimers(); }
+
+    var botReplayBtn = document.getElementById("botReplay");
+    if (botReplayBtn) botReplayBtn.addEventListener("click", botRodar);
   })();
 </script>
 </body>
