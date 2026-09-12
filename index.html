@@ -23,6 +23,8 @@
     --accent: #FF8A3D;
     --accent-ink: #1A0D02;
     --violet: #8C7BFF;
+    --good: #34D399;
+    --good-dim: rgba(52,211,153,0.14);
     --nebula-warm: rgba(255, 138, 61, 0.28);
     --nebula-cool: rgba(120, 90, 255, 0.22);
     --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
@@ -276,7 +278,7 @@
   /* ===== bot no whatsapp: recriacao de UI, no mesmo espirito do device-stack
      do hero - nao e print de tela real, e a mesma linguagem visual do resto
      do site aplicada a um chat de grupo. ===== */
-  .bot-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: start; }
+  .bot-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; align-items: start; }
   @media (max-width: 900px) { .bot-grid { grid-template-columns: 1fr; } }
 
   .bot-steps { display: flex; flex-direction: column; gap: 0; margin: 22px 0 0; border-top: 1px solid var(--border); }
@@ -285,7 +287,23 @@
   .bot-step h3 { font-family: var(--font-display); font-size: 14.5px; font-weight: 600; margin: 0 0 4px; }
   .bot-step p { font-size: 13px; color: var(--text-muted); margin: 0; max-width: 44ch; }
 
-  .bot-stage { position: relative; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 10px 0; }
+  .bot-stage {
+    display: grid; grid-template-columns: auto 44px auto; gap: 0; align-items: center; justify-content: center;
+    padding: 10px 0;
+  }
+  @media (max-width: 900px) { .bot-stage { grid-template-columns: 1fr; justify-items: center; gap: 20px; } }
+
+  .flow-signal {
+    position: relative; display: flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; color: var(--text-faint); opacity: 0.4;
+    transition: opacity 0.3s ease, color 0.3s ease;
+  }
+  .flow-signal.active { opacity: 1; color: var(--accent); }
+  .flow-signal svg { width: 18px; height: 18px; position: relative; z-index: 2; }
+  .flow-signal .ring { position: absolute; inset: 6px; border: 1.5px solid var(--accent); border-radius: 50%; opacity: 0; }
+  .flow-signal.active .ring { animation: ringPing 1.5s ease-out infinite; }
+  .flow-signal.active .ring.r2 { animation-delay: 0.5s; }
+  @keyframes ringPing { 0% { opacity: 0.65; transform: scale(0.35); } 100% { opacity: 0; transform: scale(1.7); } }
 
   /* chassi tipo iPhone - a UI de dentro anima em loop quando a aba fica ativa */
   .iphone {
@@ -358,15 +376,6 @@
   .wa-note .eye { display: inline-block; animation: waBlink 2.6s ease-in-out infinite; }
   @keyframes waBlink { 0%, 88%, 100% { opacity: 1; } 92% { opacity: 0.25; } }
 
-  .wa-arrow {
-    font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint); text-align: center;
-    opacity: 0; transition: opacity 0.3s ease;
-  }
-  .wa-arrow.show { opacity: 1; }
-  .wa-arrow b { color: var(--accent); font-weight: 500; }
-  .wa-arrow .chevron { display: inline-block; animation: waFall 1.3s ease-in-out infinite; }
-  @keyframes waFall { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(3px); opacity: 1; } }
-
   .wa-alert {
     position: relative; width: 100%; max-width: 252px; background: var(--surface); border: 1px solid var(--border);
     border-radius: 16px; padding: 15px 16px 14px; box-shadow: 0 24px 48px -20px rgba(0,0,0,0.6);
@@ -408,6 +417,119 @@
   }
   .replay-bot:hover { border-color: var(--accent); color: var(--text); }
   .replay-bot svg { width: 11px; height: 11px; display: block; }
+
+  /* ===== fluxo do chamado: operador abre no painel, tecnico recebe,
+     assume e conclui - reaproveita o chassi de iPhone e o sinal ja
+     definidos acima. ===== */
+  .flow-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: center; }
+  @media (max-width: 900px) { .flow-grid { grid-template-columns: 1fr; } }
+
+  .flow-stage {
+    display: grid; grid-template-columns: auto 44px auto; gap: 0; align-items: center; justify-content: center;
+  }
+  @media (max-width: 900px) { .flow-stage { grid-template-columns: 1fr; justify-items: center; gap: 20px; } }
+
+  .op-panel {
+    width: 240px; background: #0B0D14; border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+    box-shadow: 0 36px 70px -24px rgba(0,0,0,0.75);
+  }
+  .op-chrome { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: #0F111A; border-bottom: 1px solid var(--border); }
+  .op-chrome .dot { width: 6px; height: 6px; border-radius: 50%; background: #2A2D3E; }
+  .op-chrome .urlbar { margin-left: 6px; flex: 1; background: #171923; border-radius: 5px; padding: 3px 8px; font-family: var(--font-mono); font-size: 9px; color: var(--text-faint); }
+  .op-body { padding: 16px 16px 18px; min-height: 210px; position: relative; }
+
+  .op-label { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-faint); margin: 0 0 10px; }
+  .op-field {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 9px; padding: 9px 10px;
+    font-size: 11px; color: var(--text-muted); margin-bottom: 10px; min-height: 34px; display: flex; align-items: center;
+  }
+  .op-field .typed { opacity: 0; transition: opacity 0.2s ease; color: var(--text); }
+  .op-field .typed.show { opacity: 1; }
+  .op-field .caret { display: inline-block; width: 1.5px; height: 12px; background: var(--accent); margin-left: 1px; animation: caretBlink 0.9s step-end infinite; vertical-align: -2px; }
+  .op-field .caret.hide { display: none; }
+
+  .op-submit {
+    display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-body); font-weight: 600; font-size: 11.5px;
+    background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); border-radius: 8px;
+    padding: 7px 14px; position: relative; transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .op-submit.pressed { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+  .op-ticket {
+    margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);
+    opacity: 0; transform: translateY(6px); transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .op-ticket.show { opacity: 1; transform: translateY(0); }
+  .op-ticket-row { display: flex; align-items: center; gap: 8px; background: var(--surface); border-radius: 9px; padding: 9px 10px; border-left: 2px solid var(--accent); }
+  .op-ticket-row .st { font-size: 8px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 22%, transparent); color: var(--accent); flex: none; }
+  .op-ticket-row .st.andamento { background: color-mix(in srgb, #7fa8ff 22%, transparent); color: #7fa8ff; }
+  .op-ticket-row .st.resolvido { background: var(--good-dim); color: var(--good); }
+  .op-ticket-row .tt { font-size: 10.5px; color: var(--text); line-height: 1.3; }
+  .op-ticket-row .tt small { display: block; font-size: 8.5px; color: var(--text-faint); font-weight: 400; margin-top: 1px; }
+
+  .ph-app-head { flex: none; padding: 6px 14px 10px; }
+  .ph-app-head .lbl { font-family: var(--font-mono); font-size: 9px; color: var(--text-faint); letter-spacing: 0.04em; text-transform: uppercase; }
+  .ph-app-head .nm { font-family: var(--font-display); font-size: 13px; font-weight: 700; margin-top: 2px; }
+
+  .ph-body { flex: 1; position: relative; padding: 0; }
+
+  .push {
+    position: absolute; top: 30px; left: 14px; right: 14px; z-index: 9;
+    background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(10px);
+    border: 1px solid var(--border); border-radius: 14px; padding: 10px 12px;
+    display: flex; gap: 9px; align-items: flex-start;
+    opacity: 0; transform: translateY(-70px); transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    box-shadow: 0 18px 40px -14px rgba(0,0,0,0.6);
+  }
+  .push.show { opacity: 1; transform: translateY(0); }
+  .push .ic { width: 24px; height: 24px; border-radius: 7px; background: var(--accent); flex: none; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+  .push .tx b { display: block; font-size: 10.5px; font-weight: 700; color: var(--text); }
+  .push .tx span { font-size: 10px; color: var(--text-muted); line-height: 1.3; }
+
+  .ph-screen {
+    position: absolute; inset: 0; padding: 4px 14px 10px;
+    opacity: 0; transform: translateY(8px); transition: opacity 0.35s ease, transform 0.35s ease;
+    display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+  }
+  .ph-screen.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+  .ph-status-pill {
+    display: inline-flex; align-self: flex-start; font-size: 9px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 22%, transparent); color: var(--accent);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .ph-status-pill.andamento { background: color-mix(in srgb, #7fa8ff 22%, transparent); color: #7fa8ff; }
+  .ph-status-pill.resolvido { background: var(--good-dim); color: var(--good); }
+
+  .ph-ticket-title { font-family: var(--font-display); font-size: 13.5px; font-weight: 700; margin: 0; line-height: 1.3; }
+  .ph-ticket-meta { font-size: 10px; color: var(--text-faint); margin: -4px 0 0; }
+
+  .ph-btn {
+    align-self: stretch; text-align: center; font-family: var(--font-body); font-weight: 700; font-size: 12px;
+    padding: 10px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); position: relative;
+    transition: transform 0.15s ease, filter 0.15s ease;
+  }
+  .ph-btn.tapped { transform: scale(0.96); filter: brightness(0.9); }
+
+  .ph-photo { width: 100%; height: 76px; border-radius: 10px; background: linear-gradient(135deg, var(--surface-2), var(--surface)); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+
+  .ph-msg-box {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 9px 10px; min-height: 52px;
+    font-size: 10.5px; line-height: 1.45; color: var(--text-muted);
+  }
+  .ph-msg-box .typed { opacity: 0; color: var(--text); transition: opacity 0.2s ease; }
+  .ph-msg-box .typed.show { opacity: 1; }
+  .ph-msg-box .caret { display: inline-block; width: 1.5px; height: 11px; background: var(--accent); margin-left: 1px; animation: caretBlink 0.9s step-end infinite; vertical-align: -1px; }
+  .ph-msg-box .caret.hide { display: none; }
+
+  .ph-done {
+    margin-top: auto; display: flex; align-items: center; gap: 7px; font-size: 10px; color: var(--good);
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+  .ph-done.show { opacity: 1; }
+  .ph-done svg { width: 13px; height: 13px; flex: none; }
+
+  @keyframes caretBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
   .timeline { position: relative; padding-left: 40px; }
   .timeline::before { content: ""; position: absolute; left: 10px; top: 4px; bottom: 4px; width: 1px; background: var(--border); }
@@ -473,6 +595,7 @@
       <button class="navbtn" data-view="segmentos">Segmentos</button>
       <button class="navbtn" data-view="recursos">Recursos</button>
       <button class="navbtn" data-view="bot-whatsapp">Bot no WhatsApp</button>
+      <button class="navbtn" data-view="fluxo-chamado">Fluxo do chamado</button>
       <button class="navbtn" data-view="como-funciona">Como funciona</button>
       <button class="navtoggle" id="navToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
@@ -486,6 +609,7 @@
     <button class="navbtn" data-view="segmentos">Segmentos</button>
     <button class="navbtn" data-view="recursos">Recursos</button>
     <button class="navbtn" data-view="bot-whatsapp">Bot no WhatsApp</button>
+    <button class="navbtn" data-view="fluxo-chamado">Fluxo do chamado</button>
     <button class="navbtn" data-view="como-funciona">Como funciona</button>
   </div>
 </nav>
@@ -698,7 +822,11 @@
             </div>
           </div>
 
-          <p class="wa-arrow" id="botArrow"><span class="chevron">↓</span> segue só pra <b>você, síndico</b>, em conversa separada</p>
+          <div class="flow-signal" id="botArrow">
+            <span class="ring"></span>
+            <span class="ring r2"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
 
           <div class="wa-alert" id="botAlert">
             <span class="wa-alert-tag">Alerta privado</span>
@@ -712,10 +840,101 @@
             <div class="tap-ring" id="botTapRing"></div>
           </div>
 
-          <button class="replay-bot" id="botReplay" type="button">
+          <button class="replay-bot" id="botReplay" type="button" style="grid-column: 1 / -1; justify-self: center; margin-top: 6px;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
             Rodar de novo
           </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" data-view="fluxo-chamado">
+    <div class="scrollable">
+      <div class="flow-grid">
+        <div>
+          <p class="view-kicker">Do clique à resolução</p>
+          <h2 class="view-title">Do chamado aberto ao "resolvido" do técnico.</h2>
+          <p class="view-body">O operador abre o chamado no painel, o técnico recebe a notificação, assume e conclui com uma mensagem — tudo rastreado, sem mensagem perdida em grupo de celular.</p>
+        </div>
+
+        <div class="flow-stage">
+          <div class="op-panel" role="img" aria-label="Animação: painel do operador abrindo um novo chamado">
+            <div class="op-chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="urlbar">app.elevachamados.com.br</span></div>
+            <div class="op-body">
+              <p class="op-label">Novo chamado</p>
+              <div class="op-field"><span class="typed" id="opTyped">Interfone do bloco 2 sem sinal</span><span class="caret" id="opCaret"></span></div>
+              <button class="op-submit" id="opSubmit" type="button">Abrir chamado</button>
+              <div class="op-ticket" id="opTicket">
+                <div class="op-ticket-row">
+                  <span class="st" id="opTicketSt">Aberto</span>
+                  <span class="tt">Interfone do bloco 2 sem sinal<small>#0142 · Edifício Aurora</small></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-signal" id="flowArrow">
+            <span class="ring"></span>
+            <span class="ring r2"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </div>
+
+          <div class="iphone" role="img" aria-label="Animação: celular do técnico recebendo, assumindo e concluindo o chamado">
+            <div class="side-btn mute"></div>
+            <div class="side-btn vol-up"></div>
+            <div class="side-btn vol-down"></div>
+            <div class="side-btn power"></div>
+            <div class="iphone-screen">
+              <div class="notch"><span class="spk"></span><span class="cam"></span></div>
+              <div class="status-bar">
+                <span>21:52</span>
+                <span class="status-icons">
+                  <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="6" width="2.4" height="5" rx="0.6" fill="#fff"/><rect x="4" y="4" width="2.4" height="7" rx="0.6" fill="#fff"/><rect x="8" y="2" width="2.4" height="9" rx="0.6" fill="#fff"/><rect x="12" y="0" width="2.4" height="11" rx="0.6" fill="#fff"/></svg>
+                  <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 9.5a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Z" fill="#fff"/><path d="M4.3 6.2a4.6 4.6 0 0 1 6.4 0" stroke="#fff" stroke-width="1.3" stroke-linecap="round" fill="none"/><path d="M1.8 3.6a8.2 8.2 0 0 1 11.4 0" stroke="#fff" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>
+                  <svg width="24" height="11" viewBox="0 0 24 11" fill="none"><rect x="0.75" y="0.75" width="19.5" height="9.5" rx="2.3" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/><rect x="2.2" y="2.2" width="15" height="6.6" rx="1.3" fill="#fff"/><rect x="21" y="3.3" width="1.6" height="4.4" rx="0.8" fill="#fff" fill-opacity="0.5"/></svg>
+                </span>
+              </div>
+              <div class="ph-app-head"><p class="lbl">ElevaChamados</p><p class="nm">Meus chamados</p></div>
+              <div class="ph-body">
+                <div class="push" id="phPush">
+                  <span class="ic">🔴</span>
+                  <span class="tx"><b>Chamado urgente</b><span>Interfone do bloco 2 sem sinal — Edifício Aurora</span></span>
+                </div>
+
+                <div class="ph-screen" id="screenAssumir">
+                  <span class="ph-status-pill" id="phPillA">Aberto</span>
+                  <p class="ph-ticket-title">Interfone do bloco 2 sem sinal</p>
+                  <p class="ph-ticket-meta">#0142 · Edifício Aurora · Portaria remota</p>
+                  <div style="flex:1"></div>
+                  <div class="ph-btn" id="btnAssumir">Assumir chamado</div>
+                </div>
+
+                <div class="ph-screen" id="screenConcluir">
+                  <span class="ph-status-pill andamento">Em andamento</span>
+                  <p class="ph-ticket-title">Interfone do bloco 2 sem sinal</p>
+                  <p class="ph-ticket-meta">#0142 · Edifício Aurora</p>
+                  <div class="ph-photo">📷</div>
+                  <div class="ph-msg-box"><span class="typed" id="phTyped">Interfone trocado e testado, já tá funcionando 👍</span><span class="caret" id="phCaret"></span></div>
+                  <div style="flex:1"></div>
+                  <div class="ph-btn" id="btnConcluir">Concluir chamado</div>
+                </div>
+
+                <div class="ph-screen" id="screenFinal">
+                  <span class="ph-status-pill resolvido">Resolvido</span>
+                  <p class="ph-ticket-title">Interfone do bloco 2 sem sinal</p>
+                  <p class="ph-ticket-meta">#0142 · Edifício Aurora</p>
+                  <div class="ph-photo">📷</div>
+                  <div class="ph-msg-box"><span class="typed show">Interfone trocado e testado, já tá funcionando 👍</span></div>
+                  <div class="ph-done" id="phDone">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+                    Operador avisado — chamado encerrado
+                  </div>
+                </div>
+              </div>
+              <div class="home-indicator"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -879,6 +1098,7 @@
       navBtns.forEach(function (b) { b.classList.toggle("is-active", b.getAttribute("data-view") === nome); });
       window.scrollTo({ top: 0, behavior: "instant" });
       if (nome === "bot-whatsapp") { iniciarAnimacaoBot(); } else { pararAnimacaoBot(); }
+      if (nome === "fluxo-chamado") { iniciarAnimacaoFluxo(); } else { pararAnimacaoFluxo(); }
     }
 
     todosOsBotoesDeView.forEach(function (btn) {
@@ -968,7 +1188,7 @@
       botLimparTimers();
       Object.keys(botEls).forEach(function (k) {
         if (!botEls[k]) return;
-        botEls[k].classList.remove("show", "picked", "ping");
+        botEls[k].classList.remove("show", "picked", "ping", "active");
       });
     }
 
@@ -977,9 +1197,10 @@
 
       if (reduzMovimento) {
         Object.keys(botEls).forEach(function (k) {
-          if (k === "typing2" || k === "tapRing" || !botEls[k]) return;
+          if (k === "typing2" || k === "tapRing" || k === "arrow" || !botEls[k]) return;
           botEls[k].classList.add("show");
         });
+        botEls.arrow.classList.add("active");
         botEls.opt1.classList.add("picked");
         return;
       }
@@ -988,7 +1209,7 @@
       botEm(1300, function () { botEls.typing2.classList.add("show"); });
       botEm(2400, function () { botEls.typing2.classList.remove("show"); botEls.msg2.classList.add("show"); });
       botEm(3100, function () { botEls.note.classList.add("show"); });
-      botEm(3900, function () { botEls.arrow.classList.add("show"); });
+      botEm(3900, function () { botEls.arrow.classList.add("active"); });
       botEm(4400, function () { botEls.alert.classList.add("show"); });
       botEm(5000, function () { botEls.opt1.classList.add("show"); });
       botEm(5200, function () { botEls.opt2.classList.add("show"); });
@@ -1007,6 +1228,103 @@
 
     var botReplayBtn = document.getElementById("botReplay");
     if (botReplayBtn) botReplayBtn.addEventListener("click", botRodar);
+
+    // ---- animacao da secao "fluxo do chamado": mesmo padrao do bot, so
+    // roda enquanto a aba esta ativa ----
+    var flowEls = {
+      opTyped: document.getElementById("opTyped"),
+      opCaret: document.getElementById("opCaret"),
+      opSubmit: document.getElementById("opSubmit"),
+      opTicket: document.getElementById("opTicket"),
+      opTicketSt: document.getElementById("opTicketSt"),
+      flowArrow: document.getElementById("flowArrow"),
+      phPush: document.getElementById("phPush"),
+      screenAssumir: document.getElementById("screenAssumir"),
+      phPillA: document.getElementById("phPillA"),
+      btnAssumir: document.getElementById("btnAssumir"),
+      screenConcluir: document.getElementById("screenConcluir"),
+      phTyped: document.getElementById("phTyped"),
+      phCaret: document.getElementById("phCaret"),
+      btnConcluir: document.getElementById("btnConcluir"),
+      screenFinal: document.getElementById("screenFinal"),
+      phDone: document.getElementById("phDone"),
+    };
+    var flowTimers = [];
+
+    function flowEm(ms, fn) { flowTimers.push(setTimeout(fn, ms)); }
+    function flowLimparTimers() { flowTimers.forEach(clearTimeout); flowTimers = []; }
+
+    function flowResetar() {
+      flowLimparTimers();
+      flowEls.opTyped.classList.remove("show");
+      flowEls.opCaret.classList.remove("hide");
+      flowEls.opSubmit.classList.remove("pressed");
+      flowEls.opTicket.classList.remove("show");
+      flowEls.opTicketSt.textContent = "Aberto";
+      flowEls.opTicketSt.className = "st";
+      flowEls.flowArrow.classList.remove("active");
+      flowEls.phPush.classList.remove("show");
+      [flowEls.screenAssumir, flowEls.screenConcluir, flowEls.screenFinal].forEach(function (s) { s.classList.remove("show"); });
+      flowEls.phPillA.textContent = "Aberto";
+      flowEls.phPillA.className = "ph-status-pill";
+      flowEls.btnAssumir.classList.remove("tapped");
+      flowEls.phTyped.classList.remove("show");
+      flowEls.phCaret.classList.remove("hide");
+      flowEls.btnConcluir.classList.remove("tapped");
+      flowEls.phDone.classList.remove("show");
+    }
+
+    function flowRodar() {
+      flowResetar();
+
+      if (reduzMovimento) {
+        flowEls.opTyped.classList.add("show"); flowEls.opCaret.classList.add("hide");
+        flowEls.opTicket.classList.add("show");
+        flowEls.screenFinal.classList.add("show");
+        flowEls.phDone.classList.add("show");
+        return;
+      }
+
+      flowEm(300, function () { flowEls.opTyped.classList.add("show"); });
+      flowEm(1300, function () { flowEls.opCaret.classList.add("hide"); });
+      flowEm(1700, function () { flowEls.opSubmit.classList.add("pressed"); });
+      flowEm(2100, function () { flowEls.opTicket.classList.add("show"); });
+
+      flowEm(2700, function () { flowEls.flowArrow.classList.add("active"); });
+      flowEm(3300, function () { flowEls.phPush.classList.add("show"); });
+
+      flowEm(4700, function () { flowEls.phPush.classList.remove("show"); });
+      flowEm(5000, function () { flowEls.screenAssumir.classList.add("show"); });
+
+      flowEm(6200, function () { flowEls.btnAssumir.classList.add("tapped"); });
+      flowEm(6450, function () {
+        flowEls.btnAssumir.classList.remove("tapped");
+        flowEls.phPillA.textContent = "Em andamento";
+        flowEls.phPillA.classList.add("andamento");
+        flowEls.opTicketSt.textContent = "Em andamento";
+        flowEls.opTicketSt.classList.add("andamento");
+      });
+
+      flowEm(7100, function () { flowEls.screenAssumir.classList.remove("show"); });
+      flowEm(7400, function () { flowEls.screenConcluir.classList.add("show"); });
+      flowEm(7900, function () { flowEls.phTyped.classList.add("show"); });
+      flowEm(8900, function () { flowEls.phCaret.classList.add("hide"); });
+
+      flowEm(9400, function () { flowEls.btnConcluir.classList.add("tapped"); });
+      flowEm(9650, function () {
+        flowEls.btnConcluir.classList.remove("tapped");
+        flowEls.opTicketSt.textContent = "Resolvido";
+        flowEls.opTicketSt.className = "st resolvido";
+      });
+      flowEm(10000, function () { flowEls.screenConcluir.classList.remove("show"); });
+      flowEm(10300, function () { flowEls.screenFinal.classList.add("show"); });
+      flowEm(10900, function () { flowEls.phDone.classList.add("show"); });
+
+      flowEm(14200, flowRodar);
+    }
+
+    function iniciarAnimacaoFluxo() { flowRodar(); }
+    function pararAnimacaoFluxo() { flowLimparTimers(); }
   })();
 </script>
 </body>
