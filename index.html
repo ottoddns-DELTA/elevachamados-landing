@@ -92,13 +92,15 @@
      cosmos em 0) - o triangulo nasce por tras da moldura do browser em vez
      de flutuar sozinho no vazio acima dele. So a bolinha orbitando anima -
      os 3 vertices do triangulo ficam com brilho fixo, sem pulsar. */
-  .constellation { position: absolute; right: 7%; top: 11%; width: min(17vw, 195px); opacity: 0.85; pointer-events: none; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+  .constellation { position: absolute; right: 7%; top: 11%; width: min(17vw, 195px); opacity: 0.24; pointer-events: none; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
   .constellation svg { width: 100%; height: auto; overflow: visible; }
-  .cx-line { stroke: var(--accent); stroke-width: 1; opacity: 0.4; fill: none; }
+  .cx-line { stroke: var(--accent); stroke-width: 1; opacity: 0.35; fill: none; }
   .cx-line-dim { stroke: var(--text-faint); stroke-width: 0.6; opacity: 0.3; }
   .cx-star-dim { fill: #fff; opacity: 0.5; }
-  .cx-orbit { fill: var(--accent); filter: drop-shadow(0 0 5px var(--accent)); }
-  @media (max-width: 900px) { .constellation { width: min(28vw, 150px); opacity: 0.6; top: 2%; right: 4%; } }
+  .cx-node-dot { opacity: 0.7; }
+  .cx-node-glow { opacity: 0.35; }
+  .cx-orbit { fill: var(--accent); opacity: 0.9; filter: drop-shadow(0 0 3px var(--accent)); }
+  @media (max-width: 900px) { .constellation { width: min(28vw, 150px); opacity: 0.2; top: 2%; right: 4%; } }
 
   /* ---------- nav (pills no topo, sem sidebar) ---------- */
   nav.top { position: relative; z-index: 20; padding: 18px 20px 0; }
@@ -409,15 +411,6 @@
   .tap-ring.ping { animation: waPing 0.6s ease-out; }
   @keyframes waPing { 0% { opacity: 0.9; transform: scale(0.4); } 100% { opacity: 0; transform: scale(1.8); } }
 
-  .replay-bot {
-    display: inline-flex; align-items: center; gap: 7px; margin-top: 6px;
-    font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
-    background: transparent; border: 1px solid var(--border); border-radius: 999px;
-    padding: 7px 14px; cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease;
-  }
-  .replay-bot:hover { border-color: var(--accent); color: var(--text); }
-  .replay-bot svg { width: 11px; height: 11px; display: block; }
-
   /* ===== fluxo do chamado: operador abre no painel, tecnico recebe,
      assume e conclui - reaproveita o chassi de iPhone e o sinal ja
      definidos acima. ===== */
@@ -573,9 +566,9 @@
 
       <path id="tripath" class="cx-line" d="M210,70 L330,260 L80,260 Z" />
 
-      <g class="cx-star n1" transform="translate(210 70)"><circle class="cx-glow" r="7" fill="var(--accent)" opacity="0.5" /><circle r="3.4" fill="var(--accent)" /></g>
-      <g class="cx-star n2" transform="translate(330 260)"><circle class="cx-glow" r="6" fill="var(--accent)" opacity="0.5" /><circle r="3" fill="var(--accent)" /></g>
-      <g class="cx-star n3" transform="translate(80 260)"><circle class="cx-glow" r="6" fill="var(--accent)" opacity="0.5" /><circle r="3" fill="var(--accent)" /></g>
+      <g class="cx-star n1" transform="translate(210 70)"><circle class="cx-node-glow" r="7" fill="var(--accent)" /><circle class="cx-node-dot" r="3.4" fill="var(--accent)" /></g>
+      <g class="cx-star n2" transform="translate(330 260)"><circle class="cx-node-glow" r="6" fill="var(--accent)" /><circle class="cx-node-dot" r="3" fill="var(--accent)" /></g>
+      <g class="cx-star n3" transform="translate(80 260)"><circle class="cx-node-glow" r="6" fill="var(--accent)" /><circle class="cx-node-dot" r="3" fill="var(--accent)" /></g>
 
       <circle class="cx-orbit" r="4.5">
         <animateMotion id="orbitmotion" dur="7s" repeatCount="indefinite" rotate="0">
@@ -839,11 +832,6 @@
             </div>
             <div class="tap-ring" id="botTapRing"></div>
           </div>
-
-          <button class="replay-bot" id="botReplay" type="button" style="grid-column: 1 / -1; justify-self: center; margin-top: 6px;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-            Rodar de novo
-          </button>
         </div>
       </div>
     </div>
@@ -1225,9 +1213,6 @@
 
     function iniciarAnimacaoBot() { botRodar(); }
     function pararAnimacaoBot() { botLimparTimers(); }
-
-    var botReplayBtn = document.getElementById("botReplay");
-    if (botReplayBtn) botReplayBtn.addEventListener("click", botRodar);
 
     // ---- animacao da secao "fluxo do chamado": mesmo padrao do bot, so
     // roda enquanto a aba esta ativa ----
