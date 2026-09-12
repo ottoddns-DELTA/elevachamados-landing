@@ -126,7 +126,29 @@
   }
   .navbtn:hover { color: var(--text); background: var(--surface-2); }
   .navbtn.is-active { color: var(--bg); background: var(--text); }
-  @media (max-width: 760px) { .navbtn:not(.btn) { display: none; } }
+  @media (max-width: 760px) { .navlinks .navbtn:not(.btn) { display: none; } }
+
+  /* hambúrguer + painel mobile - substitui os navbtn escondidos acima de
+     760px, pra nao deixar as views secundarias inalcancaveis no celular */
+  .navtoggle {
+    display: none; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 999px; margin-right: 4px;
+    background: transparent; border: 1px solid var(--border); color: var(--text);
+    cursor: pointer;
+  }
+  .navtoggle svg { width: 16px; height: 16px; display: block; }
+  @media (max-width: 760px) { .navtoggle { display: inline-flex; } }
+
+  .mobile-menu {
+    display: none; position: absolute; left: 20px; right: 20px; top: 74px; z-index: 25;
+    flex-direction: column; gap: 2px; padding: 8px;
+    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    border: 1px solid var(--border); border-radius: 18px; backdrop-filter: blur(14px);
+    box-shadow: 0 24px 48px -18px rgba(0,0,0,0.7);
+  }
+  .mobile-menu.is-open { display: flex; }
+  .mobile-menu .navbtn { width: 100%; text-align: left; padding: 12px 14px; font-size: 14px; border-radius: 12px; }
+  @media (min-width: 761px) { .mobile-menu { display: none !important; } }
 
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
@@ -251,6 +273,58 @@
   .cap-item h3 { font-family: var(--font-display); font-size: 14.5px; font-weight: 600; margin: 0 0 4px; }
   .cap-item p { font-size: 13px; color: var(--text-muted); margin: 0; }
 
+  /* ===== bot no whatsapp: recriacao de UI, no mesmo espirito do device-stack
+     do hero - nao e print de tela real, e a mesma linguagem visual do resto
+     do site aplicada a um chat de grupo. ===== */
+  .bot-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
+  @media (max-width: 900px) { .bot-grid { grid-template-columns: 1fr; } }
+
+  .bot-steps { display: flex; flex-direction: column; gap: 0; margin: 22px 0 0; border-top: 1px solid var(--border); }
+  .bot-step { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .bot-step .cap-num { padding-top: 1px; }
+  .bot-step h3 { font-family: var(--font-display); font-size: 14.5px; font-weight: 600; margin: 0 0 4px; }
+  .bot-step p { font-size: 13px; color: var(--text-muted); margin: 0; max-width: 44ch; }
+
+  .bot-stage { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 10px 0; }
+
+  .wa-phone {
+    width: 100%; max-width: 270px; background: #0B0D14; border: 1px solid var(--border);
+    border-radius: 28px; padding: 9px; box-shadow: 0 40px 80px -26px rgba(0,0,0,0.8);
+  }
+  .wa-screen { background: #0C0E17; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; height: 380px; }
+  .wa-head { display: flex; align-items: center; gap: 8px; padding: 12px 12px 10px; background: var(--surface); border-bottom: 1px solid var(--border); }
+  .wa-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--surface-2); display: flex; align-items: center; justify-content: center; font-size: 12px; flex: none; }
+  .wa-title { font-size: 11.5px; font-weight: 600; line-height: 1.2; }
+  .wa-sub { font-size: 9.5px; color: var(--text-faint); }
+  .wa-body { flex: 1; padding: 12px 10px; display: flex; flex-direction: column; gap: 7px; overflow: hidden; }
+  .wa-msg { max-width: 84%; padding: 7px 10px 6px; border-radius: 11px; border-top-left-radius: 3px; font-size: 11px; line-height: 1.4; background: var(--surface); align-self: flex-start; }
+  .wa-msg .who { font-size: 9.5px; font-weight: 700; color: var(--accent); margin: 0 0 2px; }
+  .wa-note {
+    align-self: center; margin-top: auto; font-size: 9px; color: var(--text-faint);
+    text-align: center; padding-top: 9px; border-top: 1px dashed var(--border);
+  }
+
+  .wa-arrow { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint); text-align: center; }
+  .wa-arrow b { color: var(--accent); font-weight: 500; }
+
+  .wa-alert {
+    width: 100%; max-width: 270px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 15px 16px 14px; box-shadow: 0 24px 48px -20px rgba(0,0,0,0.6);
+  }
+  .wa-alert-tag {
+    display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 14%, transparent); border-radius: 999px;
+    padding: 4px 10px; margin-bottom: 10px;
+  }
+  .wa-alert-title { font-family: var(--font-display); font-size: 13.5px; font-weight: 600; margin: 0 0 4px; }
+  .wa-alert-meta { font-size: 11px; color: var(--text-muted); margin: 0 0 12px; }
+  .wa-alert-menu { display: flex; flex-direction: column; gap: 6px; }
+  .wa-opt { display: flex; align-items: center; gap: 9px; font-size: 12px; padding: 7px 9px; border-radius: 8px; background: var(--bg); border: 1px solid var(--border); color: var(--text-muted); }
+  .wa-opt b { font-family: var(--font-mono); font-weight: 500; color: var(--text-faint); width: 12px; }
+  .wa-opt.picked { background: color-mix(in srgb, var(--accent) 12%, transparent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); color: var(--text); }
+  .wa-opt.picked b { color: var(--accent); }
+
   .timeline { position: relative; padding-left: 40px; }
   .timeline::before { content: ""; position: absolute; left: 10px; top: 4px; bottom: 4px; width: 1px; background: var(--border); }
   .tl-item { position: relative; padding-bottom: 30px; }
@@ -314,9 +388,21 @@
       <button class="navbtn" data-view="quem-somos">Quem somos</button>
       <button class="navbtn" data-view="segmentos">Segmentos</button>
       <button class="navbtn" data-view="recursos">Recursos</button>
+      <button class="navbtn" data-view="bot-whatsapp">Bot no WhatsApp</button>
       <button class="navbtn" data-view="como-funciona">Como funciona</button>
+      <button class="navtoggle" id="navToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
       <a class="navbtn btn btn-primary" href="https://app.elevachamados.com.br">Entrar</a>
     </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="navbtn is-active" data-view="home">Início</button>
+    <button class="navbtn" data-view="quem-somos">Quem somos</button>
+    <button class="navbtn" data-view="segmentos">Segmentos</button>
+    <button class="navbtn" data-view="recursos">Recursos</button>
+    <button class="navbtn" data-view="bot-whatsapp">Bot no WhatsApp</button>
+    <button class="navbtn" data-view="como-funciona">Como funciona</button>
   </div>
 </nav>
 
@@ -331,7 +417,7 @@
         <p class="hero-lede">Painel web, app mobile e abertura por voz — com os termos da tela, a logo e a cor ajustados pra sua empresa.</p>
 
         <div class="hero-ctas">
-          <a class="btn btn-primary btn-lg" href="#">Falar com a gente</a>
+          <a class="btn btn-primary btn-lg" href="mailto:suporte@elevachamados.com.br?subject=Quero%20conhecer%20o%20ElevaChamados">Falar com a gente</a>
           <button class="btn btn-ghost btn-lg" data-view="como-funciona">Ver como funciona</button>
         </div>
 
@@ -482,6 +568,55 @@
     </div>
   </section>
 
+  <section class="view" data-view="bot-whatsapp">
+    <div class="scrollable">
+      <div class="view-head">
+        <p class="view-kicker">Pra síndico que já vive no grupo do prédio</p>
+        <h2 class="view-title">Chega de garimpar reclamação de morador no meio do grupo.</h2>
+        <p class="view-body">Seus moradores já reclamam ali, no grupo que já existe — ninguém baixa app novo. O ElevaChamados lê por você e te avisa em particular, com tudo que precisa pra decidir em 1 toque.</p>
+      </div>
+      <div class="bot-grid">
+        <div>
+          <div class="bot-steps">
+            <div class="bot-step"><span class="cap-num">01</span><div><h3>Fica de olho no grupo por você</h3><p>Palavra-chave de problema (portão, vazamento, interfone, luz…) já dispara — sem comando, sem @menção. Ninguém no grupo percebe nada.</p></div></div>
+            <div class="bot-step"><span class="cap-num">02</span><div><h3>Te avisa em particular</h3><p>Alerta só pra você, com o relato, a unidade de quem reclamou e um menu de 1 toque: abrir chamado, já resolvido ou ignorar.</p></div></div>
+            <div class="bot-step"><span class="cap-num">03</span><div><h3>Vira chamado rastreável</h3><p>Escolheu "abrir chamado": já cai na sua fila do painel e do app, com prioridade e trilha de quem assumiu e resolveu.</p></div></div>
+          </div>
+        </div>
+        <div class="bot-stage">
+          <div class="wa-phone" role="img" aria-label="Grupo de WhatsApp do condomínio com moradores reclamando de um problema">
+            <div class="wa-screen">
+              <div class="wa-head">
+                <div class="wa-avatar">🏢</div>
+                <div>
+                  <div class="wa-title">Edifício Aurora — Portaria</div>
+                  <div class="wa-sub">42 participantes</div>
+                </div>
+              </div>
+              <div class="wa-body">
+                <div class="wa-msg"><p class="who">Ana · apto 302</p>o interfone do bloco 2 tá sem sinal desde ontem à noite 😩</div>
+                <div class="wa-msg" style="max-width:70%"><p class="who">Carlos · apto 108</p>aqui tb tá mudo 👍</div>
+                <div class="wa-msg" style="max-width:78%"><p class="who">Regina · apto 610</p>alguém mais reclamou disso semana passada tbm</div>
+                <div class="wa-note">👀 ElevaChamados lendo o grupo por você — ninguém aqui vê isso</div>
+              </div>
+            </div>
+          </div>
+          <p class="wa-arrow">↓ segue só pra <b>você, síndico</b>, em conversa separada</p>
+          <div class="wa-alert">
+            <span class="wa-alert-tag">Alerta privado</span>
+            <p class="wa-alert-title">Interfone do bloco 2 sem sinal</p>
+            <p class="wa-alert-meta">Edifício Aurora · relatado por Ana, apto 302</p>
+            <div class="wa-alert-menu">
+              <div class="wa-opt picked"><b>1</b> Abrir chamado</div>
+              <div class="wa-opt"><b>2</b> Já sei, resolvendo</div>
+              <div class="wa-opt"><b>3</b> Ignorar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="view" data-view="como-funciona">
     <div class="scrollable">
       <div class="view-head">
@@ -621,6 +756,20 @@
     });
     var views = Array.prototype.slice.call(document.querySelectorAll(".view[data-view]"));
 
+    var navToggle = document.getElementById("navToggle");
+    var mobileMenu = document.getElementById("mobileMenu");
+
+    function fecharMenuMobile() {
+      mobileMenu.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    }
+
+    navToggle.addEventListener("click", function () {
+      var abrindo = !mobileMenu.classList.contains("is-open");
+      mobileMenu.classList.toggle("is-open", abrindo);
+      navToggle.setAttribute("aria-expanded", abrindo ? "true" : "false");
+    });
+
     function irPara(nome) {
       views.forEach(function (v) { v.classList.toggle("is-active", v.getAttribute("data-view") === nome); });
       navBtns.forEach(function (b) { b.classList.toggle("is-active", b.getAttribute("data-view") === nome); });
@@ -628,7 +777,7 @@
     }
 
     todosOsBotoesDeView.forEach(function (btn) {
-      btn.addEventListener("click", function () { irPara(btn.getAttribute("data-view")); });
+      btn.addEventListener("click", function () { irPara(btn.getAttribute("data-view")); fecharMenuMobile(); });
     });
 
     var perfis = [
