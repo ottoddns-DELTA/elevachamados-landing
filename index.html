@@ -276,7 +276,7 @@
   /* ===== bot no whatsapp: recriacao de UI, no mesmo espirito do device-stack
      do hero - nao e print de tela real, e a mesma linguagem visual do resto
      do site aplicada a um chat de grupo. ===== */
-  .bot-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center; }
+  .bot-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: start; }
   @media (max-width: 900px) { .bot-grid { grid-template-columns: 1fr; } }
 
   .bot-steps { display: flex; flex-direction: column; gap: 0; margin: 22px 0 0; border-top: 1px solid var(--border); }
@@ -570,13 +570,11 @@
 
   <section class="view" data-view="bot-whatsapp">
     <div class="scrollable">
-      <div class="view-head">
-        <p class="view-kicker">Pra síndico que já vive no grupo do prédio</p>
-        <h2 class="view-title">Chega de garimpar reclamação de morador no meio do grupo.</h2>
-        <p class="view-body">Seus moradores já reclamam ali, no grupo que já existe — ninguém baixa app novo. O ElevaChamados lê por você e te avisa em particular, com tudo que precisa pra decidir em 1 toque.</p>
-      </div>
       <div class="bot-grid">
         <div>
+          <p class="view-kicker">Pra síndico que já vive no grupo do prédio</p>
+          <h2 class="view-title">Chega de garimpar reclamação de morador no meio do grupo.</h2>
+          <p class="view-body">Seus moradores já reclamam ali, no grupo que já existe — ninguém baixa app novo. O ElevaChamados lê por você e te avisa em particular, com tudo que precisa pra decidir em 1 toque.</p>
           <div class="bot-steps">
             <div class="bot-step"><span class="cap-num">01</span><div><h3>Fica de olho no grupo por você</h3><p>Palavra-chave de problema (portão, vazamento, interfone, luz…) já dispara — sem comando, sem @menção. Ninguém no grupo percebe nada.</p></div></div>
             <div class="bot-step"><span class="cap-num">02</span><div><h3>Te avisa em particular</h3><p>Alerta só pra você, com o relato, a unidade de quem reclamou e um menu de 1 toque: abrir chamado, já resolvido ou ignorar.</p></div></div>
