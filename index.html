@@ -272,6 +272,82 @@
 
   footer { position: relative; z-index: 1; padding: 28px; border-top: 1px solid var(--border); }
   footer .row { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); flex-wrap: wrap; gap: 10px; }
+
+  /* ---------- modal "falar com a gente" ---------- */
+  .contato-overlay {
+    position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center;
+    background: rgba(5,6,12,0.72); backdrop-filter: blur(6px); padding: 20px;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+  }
+  .contato-overlay.is-open { opacity: 1; pointer-events: auto; }
+  .contato-modal {
+    width: 100%; max-width: 440px; background: #0B0D14; border: 1px solid var(--border); border-radius: 20px;
+    padding: 30px 30px 28px; box-shadow: 0 60px 120px -30px rgba(0,0,0,0.8);
+    transform: translateY(14px) scale(0.98); transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
+    max-height: 90vh; overflow-y: auto;
+  }
+  .contato-overlay.is-open .contato-modal { transform: translateY(0) scale(1); }
+  .contato-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 22px; }
+  .contato-head h2 { font-family: var(--font-display); font-size: 19px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .contato-head p { font-size: 12.5px; color: var(--text-muted); margin: 0; max-width: 34ch; }
+  .contato-close {
+    flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer;
+  }
+  .contato-close:hover { color: var(--text); border-color: var(--text-faint); }
+  .contato-close svg { width: 13px; height: 13px; }
+  .contato-field { margin-bottom: 20px; }
+  .contato-field label {
+    display: block; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--text-faint); margin-bottom: 10px;
+  }
+  .contato-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .contato-type-opt {
+    display: flex; align-items: center; gap: 9px; padding: 11px 12px; border-radius: 10px;
+    background: var(--surface); border: 1px solid var(--border); cursor: pointer;
+    font-size: 12.5px; color: var(--text-muted); transition: all 0.15s ease;
+  }
+  .contato-type-opt:hover { border-color: var(--text-faint); }
+  .contato-type-opt input { display: none; }
+  .contato-type-opt .dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--text-faint); flex: none; position: relative; transition: border-color 0.15s ease; }
+  .contato-type-opt .dot::after {
+    content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--accent);
+    opacity: 0; transition: opacity 0.15s ease;
+  }
+  .contato-type-opt.is-checked { background: color-mix(in srgb, var(--accent) 10%, var(--surface)); border-color: var(--accent); color: var(--text); }
+  .contato-type-opt.is-checked .dot { border-color: var(--accent); }
+  .contato-type-opt.is-checked .dot::after { opacity: 1; }
+  .contato-input {
+    width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 14px; font-family: var(--font-body); font-size: 13.5px; color: var(--text);
+    transition: border-color 0.15s ease;
+  }
+  .contato-input::placeholder { color: var(--text-faint); }
+  .contato-input:focus { outline: none; border-color: var(--accent); }
+  .contato-input.has-error { border-color: var(--bad); }
+  .contato-error { font-size: 11px; color: var(--bad); margin: 6px 0 0; display: none; }
+  .contato-error.show { display: block; }
+  .contato-submit {
+    width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: var(--font-body); font-weight: 700; font-size: 14px; padding: 13px; border-radius: 10px;
+    background: var(--accent); color: var(--accent-ink); border: none; cursor: pointer; margin-top: 4px;
+    transition: transform 0.15s ease, filter 0.15s ease;
+  }
+  .contato-submit:hover { transform: translateY(-1px); }
+  .contato-submit:active { transform: translateY(0); filter: brightness(0.94); }
+  .contato-submit:disabled { opacity: 0.7; cursor: default; transform: none; }
+  .contato-note { font-size: 11px; color: var(--text-faint); text-align: center; margin: 14px 0 0; line-height: 1.5; }
+  .contato-success { text-align: center; padding: 12px 0 4px; display: none; }
+  .contato-success.show { display: block; }
+  .contato-success .check {
+    width: 52px; height: 52px; border-radius: 50%; background: var(--good-dim); color: var(--good);
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 18px;
+  }
+  .contato-success .check svg { width: 24px; height: 24px; }
+  .contato-success h2 { font-family: var(--font-display); font-size: 18px; font-weight: 700; margin: 0 0 8px; }
+  .contato-success p { font-size: 13px; color: var(--text-muted); margin: 0 0 22px; line-height: 1.55; }
+  .contato-form-body { display: block; }
+  .contato-form-body.hide { display: none; }
   footer button.foot-link { background: none; border: none; color: inherit; font: inherit; cursor: pointer; padding: 0; }
 
   /* ---------- fundo persistente (nebulosa + estrelas + constelacao) ---------- */
@@ -367,7 +443,7 @@
     <h1 class="big-title">Tirar a gestão de chamados do <em>WhatsApp</em>.</h1>
     <p class="lede">Painel web, app mobile e um bot que já lê o grupo do condomínio por você. Uma coisa de cada vez — é só rolar.</p>
     <div class="hero-ctas">
-      <a class="btn btn-primary btn-lg" href="mailto:suporte@elevachamados.com.br?subject=Quero%20conhecer%20o%20ElevaChamados">Falar com a gente</a>
+      <button class="btn btn-primary btn-lg js-abrir-contato" type="button">Falar com a gente</button>
       <a class="btn btn-ghost btn-lg" href="#acao">Ver em ação</a>
     </div>
 
@@ -616,7 +692,7 @@
     <h2 class="big-title">Vamos conversar sobre a sua operação.</h2>
     <p class="lede" style="margin-inline:auto;text-align:center">Sem cartão, sem compromisso — a gente entende sua operação e monta tudo do seu jeito.</p>
     <div class="hero-ctas">
-      <a class="btn btn-primary btn-lg" href="mailto:suporte@elevachamados.com.br?subject=Quero%20conhecer%20o%20ElevaChamados">Falar com a gente</a>
+      <button class="btn btn-primary btn-lg js-abrir-contato" type="button">Falar com a gente</button>
     </div>
   </section>
 
@@ -664,6 +740,58 @@
     </div>
   </div>
 </footer>
+
+<div class="contato-overlay" id="contatoOverlay">
+  <div class="contato-modal">
+    <div class="contato-form-body" id="contatoFormBody">
+      <div class="contato-head">
+        <div>
+          <h2>Vamos conversar sobre a sua operação.</h2>
+          <p>Conta rapidinho quem você é — a gente te chama no WhatsApp.</p>
+        </div>
+        <button class="contato-close" id="contatoCloseBtn" type="button" aria-label="Fechar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="contatoForm" novalidate>
+        <div class="contato-field">
+          <label>Tipo de negócio</label>
+          <div class="contato-type-grid" id="contatoTypeGrid">
+            <label class="contato-type-opt"><input type="radio" name="contato-tipo" value="Condomínio"><span class="dot"></span>Condomínio</label>
+            <label class="contato-type-opt"><input type="radio" name="contato-tipo" value="Assistência técnica"><span class="dot"></span>Assistência técnica</label>
+            <label class="contato-type-opt"><input type="radio" name="contato-tipo" value="Suporte de TI"><span class="dot"></span>Suporte de TI</label>
+            <label class="contato-type-opt"><input type="radio" name="contato-tipo" value="Operações gerais"><span class="dot"></span>Operações gerais</label>
+          </div>
+          <p class="contato-error" id="contatoErrTipo">Escolhe uma opção pra gente entender seu contexto.</p>
+        </div>
+
+        <div class="contato-field">
+          <label for="contatoEmpresa">Nome da empresa</label>
+          <input class="contato-input" id="contatoEmpresa" type="text" placeholder="Ex: Condomínio Edifício Aurora" autocomplete="organization">
+          <p class="contato-error" id="contatoErrEmpresa">Precisa do nome pra gente saber quem é.</p>
+        </div>
+
+        <div class="contato-field">
+          <label for="contatoWhats">WhatsApp</label>
+          <input class="contato-input" id="contatoWhats" type="tel" placeholder="(00) 00000-0000" inputmode="numeric" autocomplete="tel">
+          <p class="contato-error" id="contatoErrWhats">Confere o número — precisa ter DDD.</p>
+        </div>
+
+        <button class="contato-submit" id="contatoSubmitBtn" type="submit">Enviar</button>
+        <p class="contato-error" id="contatoErrRede" style="text-align:center">Não conseguimos enviar agora. Tenta de novo em instantes.</p>
+        <p class="contato-note">Vai direto pra suporte@elevachamados.com.br.</p>
+      </form>
+    </div>
+
+    <div class="contato-success" id="contatoSuccessState">
+      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg></div>
+      <h2>Ficamos felizes pelo seu interesse!</h2>
+      <p>Um de nossos representantes entrará em contato com você em breve.</p>
+      <button class="btn btn-primary" id="contatoCloseSuccessBtn" style="width:100%;justify-content:center">Fechar</button>
+    </div>
+  </div>
+</div>
 
 <script>
   (function () {
@@ -886,6 +1014,93 @@
     });
   }, { threshold: 0.3 });
   acaoObserver.observe(acaoSection);
+
+  // ---- modal "falar com a gente" ----
+  (function () {
+    var CONTATO_API_URL = "https://delta-chamados-production.up.railway.app/api/contato-landing/";
+    var overlay = document.getElementById("contatoOverlay");
+    var abrirBtns = document.querySelectorAll(".js-abrir-contato");
+    var closeBtn = document.getElementById("contatoCloseBtn");
+    var closeSuccessBtn = document.getElementById("contatoCloseSuccessBtn");
+    var formBody = document.getElementById("contatoFormBody");
+    var successState = document.getElementById("contatoSuccessState");
+    var form = document.getElementById("contatoForm");
+    var typeOpts = document.querySelectorAll(".contato-type-opt");
+    var fEmpresa = document.getElementById("contatoEmpresa");
+    var fWhats = document.getElementById("contatoWhats");
+    var submitBtn = document.getElementById("contatoSubmitBtn");
+    var errRede = document.getElementById("contatoErrRede");
+
+    function abrirContato() {
+      overlay.classList.add("is-open");
+      formBody.classList.remove("hide");
+      successState.classList.remove("show");
+    }
+    function fecharContato() { overlay.classList.remove("is-open"); }
+
+    abrirBtns.forEach(function (b) { b.addEventListener("click", abrirContato); });
+    closeBtn.addEventListener("click", fecharContato);
+    closeSuccessBtn.addEventListener("click", fecharContato);
+    overlay.addEventListener("click", function (e) { if (e.target === overlay) fecharContato(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") fecharContato(); });
+
+    typeOpts.forEach(function (opt) {
+      opt.addEventListener("click", function () {
+        typeOpts.forEach(function (o) { o.classList.remove("is-checked"); });
+        opt.classList.add("is-checked");
+        opt.querySelector("input").checked = true;
+        document.getElementById("contatoErrTipo").classList.remove("show");
+      });
+    });
+
+    fWhats.addEventListener("input", function () {
+      var v = fWhats.value.replace(/\D/g, "").slice(0, 11);
+      if (v.length > 6) v = "(" + v.slice(0, 2) + ") " + v.slice(2, 7) + "-" + v.slice(7);
+      else if (v.length > 2) v = "(" + v.slice(0, 2) + ") " + v.slice(2);
+      else if (v.length > 0) v = "(" + v;
+      fWhats.value = v;
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var tipo = form.querySelector('input[name="contato-tipo"]:checked');
+      var empresa = fEmpresa.value.trim();
+      var whats = fWhats.value.replace(/\D/g, "");
+
+      document.getElementById("contatoErrTipo").classList.toggle("show", !tipo);
+      document.getElementById("contatoErrEmpresa").classList.toggle("show", !empresa);
+      fEmpresa.classList.toggle("has-error", !empresa);
+      document.getElementById("contatoErrWhats").classList.toggle("show", whats.length < 10);
+      fWhats.classList.toggle("has-error", whats.length < 10);
+      errRede.classList.remove("show");
+      if (!tipo || !empresa || whats.length < 10) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Enviando…";
+
+      fetch(CONTATO_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tipo_negocio: tipo.value,
+          nome_empresa: empresa,
+          whatsapp: fWhats.value,
+        }),
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error("falha no envio");
+          formBody.classList.add("hide");
+          successState.classList.add("show");
+        })
+        .catch(function () {
+          errRede.classList.add("show");
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Enviar";
+        });
+    });
+  })();
 </script>
 </body>
 </html>
