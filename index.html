@@ -353,8 +353,9 @@
   .foot-legal-btn { display: inline-flex; align-items: center; gap: 5px; }
   .foot-legal-menu { position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translate(-50%, 6px); min-width: 190px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 6px; display: flex; flex-direction: column; gap: 2px; box-shadow: 0 24px 48px -20px rgba(0,0,0,0.6); opacity: 0; pointer-events: none; transition: opacity 0.15s ease, transform 0.15s ease; }
   .foot-legal-menu.is-open { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
-  .foot-legal-menu a { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); text-decoration: none; padding: 8px 10px; border-radius: 6px; white-space: nowrap; }
-  .foot-legal-menu a:hover { background: var(--surface-2); color: var(--text); }
+  .foot-legal-menu button { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); text-decoration: none; padding: 8px 10px; border-radius: 6px; white-space: nowrap; background: none; border: none; text-align: left; cursor: pointer; }
+  .foot-legal-menu button:hover { background: var(--surface-2); color: var(--text); }
+  .legal-modal { max-width: 640px; text-align: left; }
 
   /* ---------- fundo persistente (nebulosa + estrelas + constelacao) ---------- */
   .cosmos .stars { position: absolute; inset: 0; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -504,12 +505,12 @@
   <section class="tight" id="como-funciona">
     <div style="text-align:center">
       <p class="eyebrow">Do zero ao primeiro chamado</p>
-      <h2 class="big-title" style="max-width:none;font-size:clamp(22px,3vw,32px)">Três passos, e a fila já está de pé.</h2>
+      <h2 class="big-title" style="max-width:none;font-size:clamp(22px,3vw,32px)">Três passos, e a operação já está de pé.</h2>
     </div>
     <div class="steps-row">
       <div class="step"><p class="step-num">01</p><h3>Cadastre sua operação</h3><p>Nome, marca e os termos que sua equipe já usa.</p></div>
       <div class="step"><p class="step-num">02</p><h3>Convide sua equipe</h3><p>Cada um com o acesso certo — admin, monitoramento ou campo.</p></div>
-      <div class="step"><p class="step-num">03</p><h3>Comece a atender</h3><p>App, painel ou voz. A fila já organiza por prioridade.</p></div>
+      <div class="step"><p class="step-num">03</p><h3>Comece a atender</h3><p>App, painel ou voz. Os chamados já se organizam por prioridade.</p></div>
     </div>
   </section>
 
@@ -521,7 +522,7 @@
     <div class="seg-row" id="segRow">
       <button class="seg-pill" data-detail="Portaria remota e presencial, síndico e moradores, com trilha de auditoria por acesso.">Condomínio</button>
       <button class="seg-pill" data-detail="Field service e manutenção com ordem de serviço, materiais usados e progresso em campo.">Assistência técnica</button>
-      <button class="seg-pill" data-detail="Fila de tickets com prioridade, SLA por urgência e histórico completo por solicitante.">Suporte de TI</button>
+      <button class="seg-pill" data-detail="Tickets com prioridade, SLA por urgência e histórico completo por solicitante.">Suporte de TI</button>
       <button class="seg-pill" data-detail="Qualquer time que abre, atribui e fecha tarefas recorrentes com prazo e responsável.">Operações gerais</button>
     </div>
     <p class="seg-detail" id="segDetail">↑ clique num setor pra ver como o vocabulário muda</p>
@@ -540,7 +541,7 @@
 
     <div class="cat-panel is-active" data-panel="recursos">
       <div class="res-grid">
-        <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg></span><p><b>Fila por prioridade</b>Urgente sobe pro topo sozinho.</p></div>
+        <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg></span><p><b>Prioridade automática</b>Urgente sobe pro topo sozinho.</p></div>
         <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="2"/></svg></span><p><b>App com push</b>Técnico assume e resolve pelo celular.</p></div>
         <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg></span><p><b>Abertura por voz</b>Descreve falando, a IA preenche.</p></div>
         <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4Z"/></svg></span><p><b>Dado isolado</b>Cada empresa só vê o próprio ambiente.</p></div>
@@ -702,7 +703,7 @@
     </div>
   </section>
 
-  <section id="termos" class="tight">
+  <div class="legal-content" id="legalTermos" hidden>
     <div style="max-width:70ch;margin:0 auto">
       <p class="eyebrow">Legal</p>
       <h2 class="big-title" style="max-width:none;font-size:clamp(22px,3vw,32px)">Termos de Uso</h2>
@@ -716,9 +717,9 @@
         <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin:0">Dúvidas ou solicitações: <a href="mailto:suporte@elevachamados.com.br" style="color: var(--accent);">suporte@elevachamados.com.br</a></p>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section id="privacidade" class="tight">
+  <div class="legal-content" id="legalPrivacidade" hidden>
     <div style="max-width:70ch;margin:0 auto">
       <p class="eyebrow">Legal</p>
       <h2 class="big-title" style="max-width:none;font-size:clamp(22px,3vw,32px)">Política de Privacidade</h2>
@@ -732,7 +733,7 @@
         <p style="font-size:13.5px;color:var(--text-muted);line-height:1.7;margin:0">Solicitações relacionadas a privacidade: <a href="mailto:suporte@elevachamados.com.br" style="color: var(--accent);">suporte@elevachamados.com.br</a></p>
       </div>
     </div>
-  </section>
+  </div>
 
 </div>
 
@@ -746,14 +747,26 @@
           <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="foot-legal-menu" id="footLegalMenu">
-          <a href="#termos">Termos de Uso</a>
-          <a href="#privacidade">Política de Privacidade</a>
+          <button type="button" data-legal="Termos">Termos de Uso</button>
+          <button type="button" data-legal="Privacidade">Política de Privacidade</button>
         </div>
       </div>
       <span>© ElevaChamados</span>
     </div>
   </div>
 </footer>
+
+<div class="contato-overlay" id="legalOverlay">
+  <div class="contato-modal legal-modal">
+    <div class="contato-head">
+      <div></div>
+      <button class="contato-close" id="legalCloseBtn" type="button" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="legalMount"></div>
+  </div>
+</div>
 
 <div class="contato-overlay" id="contatoOverlay">
   <div class="contato-modal">
@@ -1044,14 +1057,48 @@
       menu.classList.toggle("is-open", abrindo);
       btn.setAttribute("aria-expanded", String(abrindo));
     });
-    menu.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", fechar);
-    });
     document.addEventListener("click", function (e) {
       if (!wrap.contains(e.target)) fechar();
     });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") fechar();
+    });
+
+    // ---- modal "legal" (termos / privacidade) ----
+    var legalOverlay = document.getElementById("legalOverlay");
+    var legalMount = document.getElementById("legalMount");
+    var legalCloseBtn = document.getElementById("legalCloseBtn");
+    var legalBlocos = {
+      Termos: document.getElementById("legalTermos"),
+      Privacidade: document.getElementById("legalPrivacidade")
+    };
+
+    function abrirLegal(qual) {
+      var bloco = legalBlocos[qual];
+      if (!bloco || !legalOverlay || !legalMount) return;
+      bloco.hidden = false;
+      legalMount.innerHTML = "";
+      legalMount.appendChild(bloco);
+      legalOverlay.classList.add("is-open");
+      fechar();
+    }
+    function fecharLegal() {
+      if (legalOverlay) legalOverlay.classList.remove("is-open");
+    }
+
+    menu.querySelectorAll("button[data-legal]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        abrirLegal(b.getAttribute("data-legal"));
+      });
+    });
+    if (legalCloseBtn) legalCloseBtn.addEventListener("click", fecharLegal);
+    if (legalOverlay) {
+      legalOverlay.addEventListener("click", function (e) {
+        if (e.target === legalOverlay) fecharLegal();
+      });
+    }
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") fecharLegal();
     });
   })();
 
