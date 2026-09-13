@@ -141,6 +141,8 @@
   .res-item .ic svg { width: 15px; height: 15px; }
   .res-item p { margin: 0; font-size: 12.5px; color: var(--text-muted); line-height: 1.45; }
   .res-item p b { display: block; color: var(--text); font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .cat-panel[data-panel="confianca"] .res-item:last-child { grid-column: span 2; }
+  @media (max-width: 760px) { .cat-panel[data-panel="confianca"] .res-item:last-child { grid-column: span 1; } }
 
   .logo-row { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
   .logo-chip { background: #F4F1EA; border-radius: 12px; padding: 14px 22px; display: flex; align-items: center; }
