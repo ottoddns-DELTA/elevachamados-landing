@@ -5,29 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ElevaChamados</title>
 <meta name="description" content="Tire a gestão de chamados do WhatsApp. Sistema de chamados e tarefas para condomínios, suporte técnico e field service.">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230B0D14'/%3E%3Cpath d='M20 80 L20 64 L42 64 L42 40 L64 40 L64 20 L78 20' fill='none' stroke='%23FF8A3D' stroke-width='16' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23212121'/%3E%3Cpath d='M20 80 L20 64 L42 64 L42 40 L64 40 L64 20 L78 20' fill='none' stroke='%23ececec' stroke-width='16' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@1&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #05060C;
-    --surface: #12141F;
-    --surface-2: #191C2B;
-    --text: #F4F2EC;
-    --text-muted: #A6A6BC;
-    --text-faint: #66677F;
-    --border: #23253A;
-    --accent: #FF8A3D;
-    --accent-ink: #1A0D02;
+    --bg: #212121;
+    --surface: #2a2a2a;
+    --surface-2: #2f2f2f;
+    --text: #ececec;
+    --text-muted: #b4b4b4;
+    --text-faint: #8e8e8e;
+    --border: #3a3a3a;
+    --accent: #ffffff;
+    --accent-ink: #171717;
     --good: #34D399;
     --good-dim: rgba(52,211,153,0.14);
     --bad: #F76C6C;
     --bad-dim: rgba(247,108,108,0.14);
-    --nebula-warm: rgba(255, 138, 61, 0.2);
+    --nebula-warm: rgba(255,255,255, 0.2);
     --nebula-cool: rgba(120, 90, 255, 0.16);
     --font-display: "Geist", ui-sans-serif, system-ui, sans-serif;
-    --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
     --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
   }
   * { box-sizing: border-box; }
@@ -49,7 +49,7 @@
   nav { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(14px); background: color-mix(in srgb, var(--bg) 78%, transparent); border-bottom: 1px solid var(--border); }
   nav .row { max-width: 1080px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; }
   .brand { font-weight: 700; font-size: 14.5px; display: flex; align-items: center; gap: 9px; }
-  .brand .mark { width: 26px; height: 26px; border-radius: 8px; background: #15171F; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--accent); }
+  .brand .mark { width: 26px; height: 26px; border-radius: 8px; background: #2a2a2a; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--accent); }
   .brand .mark svg { width: 55%; height: 55%; }
   .brand .eleva { color: var(--accent); font-weight: 600; }
   .navlinks { display: flex; align-items: center; gap: 26px; }
@@ -77,12 +77,12 @@
   .btn-lg { padding: 14px 26px; font-size: 15px; }
 
   .hero-stage { margin: 72px auto 0; max-width: 620px; }
-  .browser-card { background: #0B0D14; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 60px 100px -30px rgba(0,0,0,0.75); }
-  .browser-chrome { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: #0F111A; border-bottom: 1px solid var(--border); }
-  .browser-chrome .dot { width: 7px; height: 7px; border-radius: 50%; background: #2A2D3E; }
-  .browser-chrome .urlbar { margin-left: 8px; flex: 1; background: #171923; border-radius: 6px; padding: 4px 10px; font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); text-align: left; }
+  .browser-card { background: #2a2a2a; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 60px 100px -30px rgba(0,0,0,0.75); }
+  .browser-chrome { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: #212121; border-bottom: 1px solid var(--border); }
+  .browser-chrome .dot { width: 7px; height: 7px; border-radius: 50%; background: #3f3f3f; }
+  .browser-chrome .urlbar { margin-left: 8px; flex: 1; background: #171717; border-radius: 6px; padding: 4px 10px; font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); text-align: left; }
   .browser-body { display: flex; min-height: 220px; }
-  .b-sidebar { width: 118px; flex: none; background: #0D0F17; border-right: 1px solid var(--border); padding: 14px 9px; text-align: left; }
+  .b-sidebar { width: 118px; flex: none; background: #171717; border-right: 1px solid var(--border); padding: 14px 9px; text-align: left; }
   .b-navitem { font-size: 10.5px; color: var(--text-muted); padding: 6px 8px; border-radius: 6px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 1px; }
   .b-navitem.active { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--text); font-weight: 600; }
   .b-main { flex: 1; padding: 16px; text-align: left; }
@@ -143,7 +143,7 @@
   .res-item p b { display: block; color: var(--text); font-size: 13px; font-weight: 600; margin-bottom: 2px; }
 
   .logo-row { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
-  .logo-chip { background: #F4F1EA; border-radius: 12px; padding: 14px 22px; display: flex; align-items: center; }
+  .logo-chip { background: #ececec; border-radius: 12px; padding: 14px 22px; display: flex; align-items: center; }
   .logo-chip img { height: 22px; width: auto; }
   .logo-chip img.ruijie { height: 18px; }
 
@@ -156,19 +156,19 @@
 
   .iphone {
     position: relative; width: 240px; padding: 11px;
-    background: linear-gradient(150deg, #9a9aa0 0%, #6c6c72 12%, #3a3a3e 30%, #232326 60%, #3a3a3e 88%, #8a8a90 100%);
+    background: #3a3a3a;
     border-radius: 54px;
     box-shadow: 0 46px 90px -28px rgba(0,0,0,0.85), inset 0 0 0 1px rgba(0,0,0,0.5), inset 0 1.5px 2px rgba(255,255,255,0.35);
   }
-  .iphone .side-btn { position: absolute; background: linear-gradient(90deg, #8a8a90, #3a3a3e); box-shadow: inset 0 0 0 1px rgba(0,0,0,0.4); }
+  .iphone .side-btn { position: absolute; background: #3a3a3a; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.4); }
   .iphone .side-btn.mute { left: -4px; top: 100px; width: 4px; height: 20px; border-radius: 2px 0 0 2px; }
   .iphone .side-btn.vol-up { left: -4px; top: 136px; width: 4px; height: 38px; border-radius: 2px 0 0 2px; }
   .iphone .side-btn.vol-down { left: -4px; top: 182px; width: 4px; height: 38px; border-radius: 2px 0 0 2px; }
   .iphone .side-btn.power { right: -4px; top: 146px; width: 4px; height: 60px; border-radius: 0 2px 2px 0; }
-  .iphone-screen { position: relative; background: #0C0E17; border-radius: 44px; overflow: hidden; height: 486px; display: flex; flex-direction: column; box-shadow: inset 0 0 0 1.5px #000; }
+  .iphone-screen { position: relative; background: #171717; border-radius: 44px; overflow: hidden; height: 486px; display: flex; flex-direction: column; box-shadow: inset 0 0 0 1.5px #000; }
   .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 26px; background: #000; border-radius: 0 0 17px 17px; z-index: 8; display: flex; align-items: center; justify-content: center; gap: 9px; }
-  .notch .cam { width: 8px; height: 8px; border-radius: 50%; background: #101014; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }
-  .notch .spk { width: 30px; height: 4px; border-radius: 3px; background: #101014; }
+  .notch .cam { width: 8px; height: 8px; border-radius: 50%; background: #171717; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }
+  .notch .spk { width: 30px; height: 4px; border-radius: 3px; background: #171717; }
   .status-bar { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 16px 22px 4px; font-family: var(--font-body); font-size: 12.5px; font-weight: 600; color: #fff; z-index: 7; position: relative; }
   .status-icons { display: flex; align-items: center; gap: 4px; }
   .home-indicator { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%); width: 106px; height: 4px; border-radius: 3px; background: rgba(255,255,255,0.32); z-index: 8; }
@@ -215,10 +215,10 @@
   .tap-ring.ping { animation: waPing 0.6s ease-out; }
   @keyframes waPing { 0% { opacity: 0.9; transform: scale(0.4); } 100% { opacity: 0; transform: scale(1.8); } }
 
-  .op-panel { width: 236px; background: #0B0D14; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 36px 70px -24px rgba(0,0,0,0.75); }
-  .op-chrome { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: #0F111A; border-bottom: 1px solid var(--border); }
-  .op-chrome .dot { width: 6px; height: 6px; border-radius: 50%; background: #2A2D3E; }
-  .op-chrome .urlbar { margin-left: 6px; flex: 1; background: #171923; border-radius: 5px; padding: 3px 8px; font-family: var(--font-mono); font-size: 9px; color: var(--text-faint); }
+  .op-panel { width: 236px; background: #2a2a2a; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 36px 70px -24px rgba(0,0,0,0.75); }
+  .op-chrome { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: #212121; border-bottom: 1px solid var(--border); }
+  .op-chrome .dot { width: 6px; height: 6px; border-radius: 50%; background: #3f3f3f; }
+  .op-chrome .urlbar { margin-left: 6px; flex: 1; background: #171717; border-radius: 5px; padding: 3px 8px; font-family: var(--font-mono); font-size: 9px; color: var(--text-faint); }
   .op-body { padding: 16px 16px 18px; min-height: 210px; position: relative; }
   .op-label { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-faint); margin: 0 0 10px; }
   .op-field { background: var(--surface); border: 1px solid var(--border); border-radius: 9px; padding: 9px 10px; font-size: 11px; color: var(--text-muted); margin-bottom: 10px; min-height: 34px; display: flex; align-items: center; }
@@ -281,7 +281,7 @@
   }
   .contato-overlay.is-open { opacity: 1; pointer-events: auto; }
   .contato-modal {
-    width: 100%; max-width: 440px; background: #0B0D14; border: 1px solid var(--border); border-radius: 20px;
+    width: 100%; max-width: 440px; background: #2a2a2a; border: 1px solid var(--border); border-radius: 20px;
     padding: 30px 30px 28px; box-shadow: 0 60px 120px -30px rgba(0,0,0,0.8);
     transform: translateY(14px) scale(0.98); transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
     max-height: 90vh; overflow-y: auto;
@@ -370,7 +370,7 @@
   .comet-wrap { position: absolute; z-index: 1; }
   .comet-core {
     position: relative; width: 3px; height: 3px; border-radius: 50%; background: #fff;
-    box-shadow: 0 0 8px 2px rgba(255,255,255,0.9), 0 0 20px 4px rgba(255,138,61,0.35);
+    box-shadow: 0 0 8px 2px rgba(255,255,255,0.9), 0 0 20px 4px rgba(255,255,255,0.35);
     animation: cometMove 1.7s ease-in forwards;
   }
   .comet-core::before {
@@ -396,6 +396,89 @@
   .cx-node-glow { opacity: 0.35; }
   .cx-orbit { fill: var(--accent); opacity: 0.9; filter: drop-shadow(0 0 3px var(--accent)); }
   @media (max-width: 900px) { .constellation { width: min(28vw, 150px); opacity: 0.2; top: 2%; right: 4%; } }
+
+  /* ============ tema neutro (v2): cinzas do sistema, botao branco, sem laranja ============ */
+  body { overflow-x: hidden; }
+  .cosmos .blob-a, .cosmos .blob-b, .cosmos .stars, .comet-wrap { display: none; }
+  .announce { position: relative; z-index: 21; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 9px 16px; background: #171717; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-muted); text-align: center; flex-wrap: wrap; }
+  .announce a { color: var(--text); font-weight: 500; text-decoration: none; }
+  .announce a:hover { text-decoration: underline; }
+  nav { background: color-mix(in srgb, var(--bg) 88%, transparent); border-bottom-color: #2f2f2f; }
+  .brand { font-weight: 600; }
+  .brand .eleva { color: var(--text-muted); font-weight: 400; }
+  .brand .mark { background: var(--surface); color: var(--text); }
+  .nav-cta { padding: 7px 16px; font-size: 13px; }
+  .btn-primary:hover { background: #e0e0e0; }
+  .btn-ghost { border-color: var(--border); }
+  .btn-ghost:hover { background: var(--surface); }
+  .eyebrow { font-family: var(--font-body); font-size: 14px; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--text-faint); }
+  .big-title { font-weight: 500; letter-spacing: -0.035em; }
+  .big-title em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; color: #b4b4b4; font-size: 1.12em; letter-spacing: -0.01em; }
+  .hero { position: relative; }
+  .hero::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); background-image: radial-gradient(#2c2c2c 1px, transparent 1px); background-size: 28px 28px; z-index: -1; pointer-events: none; }
+  .browser-card { border-color: var(--border); box-shadow: 0 30px 60px rgba(0,0,0,0.35); }
+  .compare-strip { gap: 20px; }
+  .compare-vs { display: none; }
+  .compare-card { border-radius: 20px; border-color: var(--border) !important; }
+  .compare-tag { font-family: var(--font-body); text-transform: none; letter-spacing: 0; font-size: 12px; font-weight: 500; }
+  .step { text-align: left; border-top: 1px solid var(--border); padding-top: 20px; }
+  .step p { margin-inline: 0; max-width: none; }
+  .step-num { font-family: var(--font-body); color: var(--text-faint); font-size: 14px; font-weight: 500; }
+  .seg-pill { font-weight: 500; }
+  .seg-pill.is-open { background: #3a3a3a; color: #ffffff; border-color: #4a4a4a; }
+  .cat-toggle { display: flex; width: fit-content; gap: 2px; padding: 3px; margin: 44px auto 36px; border-radius: 999px; background: var(--surface-2); }
+  .cat-btn { font-family: var(--font-body); font-size: 14px; font-weight: 500; letter-spacing: 0; padding: 8px 20px; border: none; color: var(--text-muted); }
+  .cat-btn.is-active { background: #4a4a4a; color: #ffffff; }
+  .res-item p b { font-weight: 600; }
+  .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .bento-card { padding: 24px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border); display: flex; flex-direction: column; min-height: 330px; }
+  .bento-card h3 { margin: 0; font-size: 17px; font-weight: 600; color: #fff; }
+  .bento-card > p { margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: var(--text-muted); }
+  .bento-ui { margin-top: 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .bui-row { padding: 10px 12px; border-radius: 10px; background: var(--bg); border: 1px solid #2f2f2f; font-size: 12.5px; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .bui-row.hot { border-color: var(--border); color: var(--text); }
+  .bui-tag { font-size: 10.5px; font-weight: 600; color: #fca5a5; background: rgba(239,68,68,0.14); padding: 2px 8px; border-radius: 99px; }
+  .bui-voice { height: 56px; border-radius: 12px; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; gap: 14px; padding: 0 14px; }
+  .bui-mic { width: 32px; height: 32px; border-radius: 50%; background: #fff; color: #171717; display: flex; align-items: center; justify-content: center; flex: none; }
+  .bui-wave { flex: 1; display: flex; align-items: center; gap: 3px; height: 24px; }
+  .bui-wave i { width: 3px; border-radius: 2px; background: #8e8e8e; }
+  .bui-field { padding: 11px 14px; border-radius: 12px; background: var(--bg); border: 1px solid #2f2f2f; font-size: 13px; color: var(--text); }
+  .bui-field small { display: block; font-size: 11px; color: var(--text-faint); }
+  .bui-push { padding: 12px 14px; border-radius: 14px; background: var(--bg); border: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start; }
+  .bui-push-ic { width: 26px; height: 26px; border-radius: 8px; background: var(--surface-2); flex: none; display: flex; align-items: center; justify-content: center; color: var(--text); }
+  .bui-push b { display: block; font-size: 12.5px; font-weight: 600; color: #fff; }
+  .bui-push span:not(.bui-push-ic) { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .bui-btn { height: 40px; border-radius: 999px; background: #fff; color: #171717; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  .bento-small { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px; }
+  .bento-mini { padding: 22px 24px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border); }
+  .bm-ic { width: 32px; height: 32px; border-radius: 9px; background: var(--surface-2); display: inline-flex; align-items: center; justify-content: center; color: var(--text); }
+  .bm-ic svg { width: 16px; height: 16px; }
+  .bento-mini p { margin: 12px 0 0; font-size: 15px; line-height: 1.4; color: var(--text-muted); }
+  .bento-mini p b { font-weight: 600; color: #fff; }
+  @media (max-width: 900px) { .bento, .bento-small { grid-template-columns: 1fr; } .bento-card { min-height: 0; } }
+  .cta-final .big-title { max-width: 18ch; }
+  footer { padding: 48px 28px 28px; background: #171717; }
+  footer .foot-grid { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+  .foot-name { font-size: 17px; font-weight: 600; color: #fff; }
+  .foot-name span { font-weight: 400; color: var(--text-muted); }
+  .foot-brand p { margin: 12px 0 0; max-width: 32ch; font-size: 14px; line-height: 1.55; color: var(--text-faint); }
+  .foot-cols { display: flex; gap: 72px; flex-wrap: wrap; }
+  .foot-col { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+  .foot-col b { font-size: 13px; font-weight: 500; color: var(--text); }
+  .foot-col a, .foot-legal-list button { font-family: var(--font-body); font-size: 14px; color: var(--text-faint); text-decoration: none; background: none; border: none; padding: 0; cursor: pointer; text-align: left; }
+  .foot-col a:hover, .foot-legal-list button:hover { color: var(--text); }
+  .foot-legal-list { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+  footer .foot-bottom { max-width: 1080px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid #2f2f2f; display: flex; justify-content: space-between; font-size: 13px; color: var(--text-faint); flex-wrap: wrap; gap: 8px; }
+  .wa-alert-tag { font-family: var(--font-body); text-transform: none; letter-spacing: 0; font-size: 10.5px; font-weight: 500; color: var(--text-muted); }
+  .compare-strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; align-items: stretch; }
+  .compare-card { min-width: 0; }
+  @media (max-width: 700px) { .compare-strip { grid-template-columns: 1fr; } }
+  #footLegalBtn { display: none !important; }
+  .contato-field label, .contato-type-opt, .contato-input, .contato-submit, .op-label, .op-field, .foot-legal-menu button { font-family: var(--font-body); text-transform: none; letter-spacing: 0; }
+  .contato-field label { font-size: 12.5px; font-weight: 500; color: var(--text-muted); }
+  .op-label { font-size: 11px; color: var(--text-faint); }
+  nav .row { gap: 12px; }
+  @media (max-width: 720px) { .navlinks { gap: 14px; } .nav-cta { padding: 7px 13px; } .announce { font-size: 12px; padding: 8px 14px; } .announce a { display: none; } }
 </style>
 </head>
 <body>
@@ -428,6 +511,7 @@
   </div>
 </div>
 
+<div class="announce"><span>Novo: abra chamados pelo WhatsApp, por mensagem ou áudio.</span><a href="#recursos">Saiba mais</a></div>
 <nav>
   <div class="row">
     <div class="brand">
@@ -439,6 +523,7 @@
       <a href="#recursos">Recursos</a>
       <a href="#acao">Em ação</a>
       <a class="always" href="https://app.elevachamados.com.br">Entrar</a>
+      <button class="btn btn-primary js-abrir-contato nav-cta" type="button">Falar com a gente</button>
     </div>
   </div>
 </nav>
@@ -465,7 +550,7 @@
             <div class="b-navitem">Resolvidos</div>
           </div>
           <div class="b-main">
-            <p class="b-hello">Boa tarde 👋</p>
+            <p class="b-hello">Boa tarde</p>
             <div class="b-stats">
               <div class="b-stat"><p class="num">3</p><p class="lbl">Abertos</p></div>
               <div class="b-stat"><p class="num">2</p><p class="lbl">Ativas</p></div>
@@ -485,7 +570,7 @@
   <section class="tight">
     <div class="compare-head">
       <p class="eyebrow">A dor por trás da compra</p>
-      <h2 class="big-title" style="max-width:none;font-size:clamp(22px,3vw,32px)">A mesma reclamação. Dois jeitos de lidar com ela.</h2>
+      <h2 class="big-title" style="max-width:none;font-size:clamp(28px,3.6vw,44px)">A mesma reclamação. Dois <em>jeitos</em> de lidar com ela.</h2>
     </div>
     <div class="compare-strip">
       <div class="compare-card bad">
@@ -505,7 +590,7 @@
   <section class="tight" id="como-funciona">
     <div style="text-align:center">
       <p class="eyebrow">Do zero ao primeiro chamado</p>
-      <h2 class="big-title" style="max-width:none;font-size:clamp(22px,3vw,32px)">Três passos, e a operação já está de pé.</h2>
+      <h2 class="big-title" style="max-width:none;font-size:clamp(28px,3.6vw,44px)">Três passos, e a operação já está <em>de pé.</em></h2>
     </div>
     <div class="steps-row">
       <div class="step"><p class="step-num">01</p><h3>Cadastre sua operação</h3><p>Nome, marca e os termos que sua equipe já usa.</p></div>
@@ -517,7 +602,7 @@
   <section class="tight">
     <div style="text-align:center">
       <p class="eyebrow">Um núcleo, quatro vocabulários</p>
-      <h2 class="big-title" style="max-width:none;font-size:clamp(22px,3vw,32px)">Feito pra parecer que foi construído só pro seu setor.</h2>
+      <h2 class="big-title" style="max-width:none;font-size:clamp(28px,3.6vw,44px)">Feito pra parecer que foi construído só <em>pro seu setor.</em></h2>
     </div>
     <div class="seg-row" id="segRow">
       <button class="seg-pill" data-detail="Portaria remota e presencial, síndico e moradores, com trilha de auditoria por acesso.">Condomínio</button>
@@ -531,7 +616,7 @@
   <section id="recursos">
     <div style="text-align:center">
       <p class="eyebrow">O que já vem pronto</p>
-      <h2 class="big-title" style="max-width:none;font-size:clamp(22px,3vw,32px)">Tudo incluso.</h2>
+      <h2 class="big-title" style="max-width:none;font-size:clamp(28px,3.6vw,44px)">Tudo <em>incluso.</em></h2>
     </div>
 
     <div class="cat-toggle">
@@ -540,17 +625,39 @@
     </div>
 
     <div class="cat-panel is-active" data-panel="recursos">
-      <div class="res-grid">
-        <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg></span><p><b>Prioridade automática</b>Urgente sobe pro topo sozinho.</p></div>
-        <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="2"/></svg></span><p><b>App com push</b>Técnico assume e resolve pelo celular.</p></div>
-        <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg></span><p><b>Abertura por voz</b>Descreve falando, a IA preenche.</p></div>
-        <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4Z"/></svg></span><p><b>Dado isolado</b>Cada empresa só vê o próprio ambiente.</p></div>
-        <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20 20 4M4 4l16 16"/></svg></span><p><b>Marca própria</b>Logo, cor e termos sem código.</p></div>
-        <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><p><b>Trilha de auditoria</b>Quem, quando, o quê.</p></div>
+      <div class="bento">
+        <div class="bento-card">
+          <h3>Prioridade automática</h3><p>Urgente sobe pro topo sozinho.</p>
+          <div class="bento-ui">
+            <div class="bui-row hot"><span>Portão da garagem não abre</span><span class="bui-tag">Urgente</span></div>
+            <div class="bui-row"><span>Câmera do bloco B offline</span></div>
+            <div class="bui-row"><span>Link instável na portaria</span></div>
+          </div>
+        </div>
+        <div class="bento-card">
+          <h3>Abertura por voz</h3><p>Descreve falando, a IA preenche.</p>
+          <div class="bento-ui">
+            <div class="bui-voice"><span class="bui-mic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></span><span class="bui-wave"><i style="height:8px"></i><i style="height:16px"></i><i style="height:22px"></i><i style="height:12px"></i><i style="height:18px"></i><i style="height:9px"></i><i style="height:20px"></i><i style="height:12px"></i><i style="height:6px"></i></span></div>
+            <div class="bui-field"><small>Título</small>Portão da garagem não abre</div>
+            <div class="bui-field"><small>Condomínio</small>Residencial Villa Bella</div>
+          </div>
+        </div>
+        <div class="bento-card">
+          <h3>App com push</h3><p>Técnico assume e resolve pelo celular.</p>
+          <div class="bento-ui">
+            <div class="bui-push"><span class="bui-push-ic"><svg width="13" height="13" viewBox="10 8 80 84"><path d="M20 80 L20 64 L42 64 L42 40 L64 40 L64 20 L78 20" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Novo chamado urgente</b><span>Portão da garagem não abre</span></div></div>
+            <div class="bui-btn">Assumir atendimento</div>
+          </div>
+        </div>
+      </div>
+      <div class="bento-small">
+        <div class="bento-mini"><span class="bm-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span><p><b>Dado isolado.</b> Cada empresa só vê o próprio ambiente.</p></div>
+        <div class="bento-mini"><span class="bm-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.3-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.3A3.7 3.7 0 0 0 21 10.7C21 6.4 17 3 12 3Z"/></svg></span><p><b>Marca própria.</b> Logo, cor e termos sem código.</p></div>
+        <div class="bento-mini"><span class="bm-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span><p><b>Trilha de auditoria.</b> Quem, quando, o quê.</p></div>
       </div>
     </div>
-
     <div class="cat-panel" data-panel="confianca">
+
       <div class="res-grid">
         <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4Z"/></svg></span><p><b>Isolamento por empresa</b>Dado de um cliente nunca cruza com o de outro.</p></div>
         <div class="res-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><p><b>Auditoria completa</b>Todo acesso e ação ficam registrados.</p></div>
@@ -566,7 +673,7 @@
   <section id="integracoes" class="tight">
     <div style="text-align:center">
       <p class="eyebrow">Já conectado com quem você usa</p>
-      <h2 class="big-title" style="max-width:none;font-size:clamp(22px,3vw,32px)">Um sistema só, vários fornecedores.</h2>
+      <h2 class="big-title" style="max-width:none;font-size:clamp(28px,3.6vw,44px)">Um sistema só, <em>vários fornecedores.</em></h2>
     </div>
       <p style="text-align:center;color:var(--text-muted);font-size:13.5px;margin:0 0 28px">Roteador, switch e automação já falam com o ElevaChamados.</p>
       <div class="logo-row">
@@ -579,7 +686,7 @@
   <section id="acao">
     <div style="text-align:center">
       <p class="eyebrow">Veja em ação</p>
-      <h2 class="big-title" style="max-width:none;font-size:clamp(22px,3vw,32px)">Duas cenas que explicam o produto sozinhas.</h2>
+      <h2 class="big-title" style="max-width:none;font-size:clamp(28px,3.6vw,44px)">Duas cenas que <em>explicam o produto</em> sozinhas.</h2>
     </div>
 
     <div class="cat-toggle">
@@ -599,12 +706,12 @@
               <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 9.5a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Z" fill="#fff"/><path d="M4.3 6.2a4.6 4.6 0 0 1 6.4 0" stroke="#fff" stroke-width="1.3" stroke-linecap="round" fill="none"/><path d="M1.8 3.6a8.2 8.2 0 0 1 11.4 0" stroke="#fff" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>
               <svg width="24" height="11" viewBox="0 0 24 11" fill="none"><rect x="0.75" y="0.75" width="19.5" height="9.5" rx="2.3" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/><rect x="2.2" y="2.2" width="15" height="6.6" rx="1.3" fill="#fff"/><rect x="21" y="3.3" width="1.6" height="4.4" rx="0.8" fill="#fff" fill-opacity="0.5"/></svg>
             </span></div>
-            <div class="wa-head"><div class="wa-avatar">🏢</div><div><div class="wa-title">Edifício Aurora — Portaria</div><div class="wa-sub">42 participantes</div></div></div>
+            <div class="wa-head"><div class="wa-avatar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16M15 9h4a1 1 0 0 1 1 1v11M3 21h18M8 8h3M8 12h3M8 16h3"/></svg></div><div><div class="wa-title">Edifício Aurora — Portaria</div><div class="wa-sub">42 participantes</div></div></div>
             <div class="wa-body" id="botWaBody">
-              <div class="wa-msg" id="botMsg1"><p class="who">Ana · apto 302</p>o interfone do bloco 2 tá sem sinal desde ontem à noite 😩</div>
+              <div class="wa-msg" id="botMsg1"><p class="who">Ana · apto 302</p>o interfone do bloco 2 tá sem sinal desde ontem à noite</div>
               <div class="wa-typing" id="botTyping2"><span></span><span></span><span></span></div>
-              <div class="wa-msg" id="botMsg2" style="max-width:70%"><p class="who">Carlos · apto 108</p>aqui tb tá mudo 👍</div>
-              <div class="wa-note" id="botNote"><span class="eye">👀</span> ElevaChamados lendo o grupo por você — ninguém aqui vê isso</div>
+              <div class="wa-msg" id="botMsg2" style="max-width:70%"><p class="who">Carlos · apto 108</p>aqui tb tá mudo</div>
+              <div class="wa-note" id="botNote"><span class="eye"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></span> ElevaChamados lendo o grupo por você — ninguém aqui vê isso</div>
             </div>
             <div class="home-indicator"></div>
           </div>
@@ -658,7 +765,7 @@
             </span></div>
             <div class="ph-app-head"><p class="lbl">ElevaChamados</p><p class="nm">Meus chamados</p></div>
             <div class="ph-body">
-              <div class="push" id="phPush"><span class="ic">🔴</span><span class="tx"><b>Chamado urgente</b><span>Interfone do bloco 2 sem sinal — Edifício Aurora</span></span></div>
+              <div class="push" id="phPush"><span class="ic"><span style="width:8px;height:8px;border-radius:50%;background:#f87171;display:block"></span></span><span class="tx"><b>Chamado urgente</b><span>Interfone do bloco 2 sem sinal — Edifício Aurora</span></span></div>
               <div class="ph-screen" id="screenAssumir">
                 <span class="ph-status-pill" id="phPillA">Aberto</span>
                 <p class="ph-ticket-title">Interfone do bloco 2 sem sinal</p>
@@ -670,8 +777,8 @@
                 <span class="ph-status-pill andamento">Em andamento</span>
                 <p class="ph-ticket-title">Interfone do bloco 2 sem sinal</p>
                 <p class="ph-ticket-meta">#0142 · Edifício Aurora</p>
-                <div class="ph-photo">📷</div>
-                <div class="ph-msg-box"><span class="typed" id="phTyped">Interfone trocado e testado, já tá funcionando 👍</span><span class="caret" id="phCaret"></span></div>
+                <div class="ph-photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4V8Z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+                <div class="ph-msg-box"><span class="typed" id="phTyped">Interfone trocado e testado, já tá funcionando</span><span class="caret" id="phCaret"></span></div>
                 <div style="flex:1"></div>
                 <div class="ph-btn" id="btnConcluir">Concluir chamado</div>
               </div>
@@ -679,8 +786,8 @@
                 <span class="ph-status-pill resolvido">Resolvido</span>
                 <p class="ph-ticket-title">Interfone do bloco 2 sem sinal</p>
                 <p class="ph-ticket-meta">#0142 · Edifício Aurora</p>
-                <div class="ph-photo">📷</div>
-                <div class="ph-msg-box"><span class="typed show">Interfone trocado e testado, já tá funcionando 👍</span></div>
+                <div class="ph-photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4V8Z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+                <div class="ph-msg-box"><span class="typed show">Interfone trocado e testado, já tá funcionando</span></div>
                 <div class="ph-done" id="phDone">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
                   Operador avisado — chamado encerrado
@@ -696,17 +803,18 @@
 
   <section class="cta-final">
     <p class="eyebrow">Comece hoje</p>
-    <h2 class="big-title">Vamos conversar sobre a sua operação.</h2>
+    <h2 class="big-title">Vamos conversar sobre <em>a sua operação.</em></h2>
     <p class="lede" style="margin-inline:auto;text-align:center">Sem cartão, sem compromisso — a gente entende sua operação e monta tudo do seu jeito.</p>
     <div class="hero-ctas">
       <button class="btn btn-primary btn-lg js-abrir-contato" type="button">Falar com a gente</button>
+      <a class="btn btn-ghost btn-lg" href="#acao">Ver em ação</a>
     </div>
   </section>
 
   <div class="legal-content" id="legalTermos" hidden>
     <div style="max-width:70ch;margin:0 auto">
       <p class="eyebrow">Legal</p>
-      <h2 class="big-title" style="max-width:none;font-size:clamp(22px,3vw,32px)">Termos de Uso</h2>
+      <h2 class="big-title" style="max-width:none;font-size:clamp(28px,3.6vw,44px)">Termos de Uso</h2>
       <p style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint);margin:14px 0 22px">Última atualização: 21/08/2026</p>
       <div style="display:flex;flex-direction:column;gap:16px">
         <p style="font-size:13.5px;color:var(--text);line-height:1.7;margin:0">Ao utilizar esta plataforma, você concorda com os presentes Termos de Uso.</p>
@@ -722,7 +830,7 @@
   <div class="legal-content" id="legalPrivacidade" hidden>
     <div style="max-width:70ch;margin:0 auto">
       <p class="eyebrow">Legal</p>
-      <h2 class="big-title" style="max-width:none;font-size:clamp(22px,3vw,32px)">Política de Privacidade</h2>
+      <h2 class="big-title" style="max-width:none;font-size:clamp(28px,3.6vw,44px)">Política de Privacidade</h2>
       <p style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint);margin:14px 0 22px">Última atualização: 21/08/2026</p>
       <div style="display:flex;flex-direction:column;gap:16px">
         <p style="font-size:13.5px;color:var(--text);line-height:1.7;margin:0">Esta Política descreve como os dados são tratados dentro do ElevaChamados.</p>
@@ -738,23 +846,26 @@
 </div>
 
 <footer>
-  <div class="row">
-    <span>elevachamados.com.br</span>
-    <div style="display:flex;gap:14px;align-items:center">
-      <div class="foot-legal" id="footLegal">
-        <button class="foot-link foot-legal-btn" id="footLegalBtn" type="button" aria-haspopup="true" aria-expanded="false">
-          Legal
-          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="foot-legal-menu" id="footLegalMenu">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <span class="foot-name">Eleva<span>Chamados</span></span>
+      <p>Chamados, ordens de serviço e tickets, do grupo do WhatsApp à execução.</p>
+    </div>
+    <div class="foot-cols">
+      <div class="foot-col"><b>Produto</b><a href="#como-funciona">Como funciona</a><a href="#recursos">Recursos</a><a href="#acao">Em ação</a></div>
+      <div class="foot-col foot-legal" id="footLegal"><b>Legal</b>
+        <button class="foot-link foot-legal-btn" id="footLegalBtn" type="button" hidden aria-hidden="true" tabindex="-1">Legal</button>
+        <div class="foot-legal-list" id="footLegalMenu">
           <button type="button" data-legal="Termos">Termos de Uso</button>
           <button type="button" data-legal="Privacidade">Política de Privacidade</button>
         </div>
       </div>
-      <span>© ElevaChamados</span>
+      <div class="foot-col"><b>Contato</b><a href="mailto:suporte@elevachamados.com.br">suporte@elevachamados.com.br</a></div>
     </div>
   </div>
+  <div class="foot-bottom"><span>© ElevaChamados</span><span>elevachamados.com.br</span></div>
 </footer>
+
 
 <div class="contato-overlay" id="legalOverlay">
   <div class="contato-modal legal-modal">
