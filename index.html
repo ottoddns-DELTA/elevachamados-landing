@@ -479,6 +479,42 @@
   .op-label { font-size: 11px; color: var(--text-faint); }
   nav .row { gap: 12px; }
   @media (max-width: 720px) { .navlinks { gap: 14px; } .nav-cta { padding: 7px 13px; } .announce { font-size: 12px; padding: 8px 14px; } .announce a { display: none; } }
+
+  /* ============ hero: titulo a esquerda + grupo e alerta do sindico a direita ============ */
+  .hero-split { display: flex; align-items: center; gap: 48px; text-align: left; padding: 72px 0 96px; }
+  .hero-split .hero-copy { flex: 1 1 0; min-width: 0; max-width: 560px; }
+  .hero-split .big-title { max-width: 14em; margin: 0; font-size: clamp(32px, 3.9vw, 46px); line-height: 1.1; letter-spacing: -0.035em; font-weight: 500; text-wrap: balance; }
+  .hero-split .lede { margin: 26px 0 0; max-width: 34em; font-size: 17px; line-height: 1.6; color: var(--text-muted); }
+  .hero-split .hero-ctas { justify-content: flex-start; margin: 32px 0 0; gap: 26px; }
+  .hero-link { font-size: 15px; color: var(--text); text-decoration: underline; text-decoration-color: #5a5a5a; text-underline-offset: 4px; }
+  .hero-link:hover { text-decoration-color: var(--text); }
+  .hero-note { margin: 40px 0 0; font-size: 13.5px; color: var(--text-faint); }
+
+  .hero-visual { position: relative; flex: 0 0 440px; height: 536px; }
+  .hv-chat { position: absolute; left: 0; top: 0; width: 380px; border-radius: 18px; background: #171717; border: 1px solid #333333; overflow: hidden; }
+  .hv-chat-head { padding: 13px 18px; border-bottom: 1px solid #2a2a2a; }
+  .hv-chat-head .t { margin: 0; font-size: 13.5px; font-weight: 600; color: #fff; }
+  .hv-chat-head .s { margin: 2px 0 0; font-size: 12px; color: var(--text-faint); }
+  .hv-chat-body { padding: 16px; display: flex; flex-direction: column; gap: 9px; }
+  .hv-bubble { padding: 9px 13px; border-radius: 14px 14px 14px 4px; background: #2a2a2a; font-size: 13.5px; line-height: 1.45; color: var(--text); }
+  .hv-bubble .who { margin: 0 0 3px; font-size: 11px; font-weight: 600; color: var(--text-faint); }
+  .hv-note { margin: 4px 0 0; font-size: 12px; color: var(--text-faint); }
+  .hv-alert { position: absolute; left: 120px; top: 272px; width: 320px; padding: 18px; border-radius: 16px; background: #2a2a2a; border: 1px solid #4a4a4a; box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+  .hv-alert-tag { margin: 0; font-size: 12px; color: var(--text-faint); }
+  .hv-alert-title { margin: 8px 0 0; font-size: 16px; font-weight: 600; color: #fff; }
+  .hv-alert-meta { margin: 3px 0 0; font-size: 12.5px; color: var(--text-faint); }
+  .hv-menu { margin-top: 14px; display: flex; flex-direction: column; gap: 7px; }
+  .hv-opt { height: 40px; padding: 0 13px; border-radius: 10px; background: #212121; border: 1px solid #333333; display: flex; align-items: center; gap: 11px; font-size: 13.5px; color: var(--text-muted); }
+  .hv-opt b { width: 21px; height: 21px; border-radius: 99px; background: #2f2f2f; color: var(--text); display: inline-flex; align-items: center; justify-content: center; font-size: 11.5px; }
+  .hv-opt.is-picked { background: #3a3a3a; border-color: #5a5a5a; color: #fff; }
+  .hv-opt.is-picked b { background: #fff; color: #171717; }
+  @media (max-width: 1000px) {
+    .hero-split { flex-direction: column; align-items: flex-start; gap: 44px; padding-top: 48px; }
+    .hero-split .hero-copy { max-width: none; }
+    .hero-visual { flex: none; width: 100%; height: auto; display: flex; flex-direction: column; gap: 14px; }
+    .hv-chat, .hv-alert { position: static; width: 100%; max-width: 440px; }
+    .hv-alert { align-self: flex-end; }
+  }
 </style>
 </head>
 <body>
@@ -530,38 +566,33 @@
 
 <div class="wrap">
 
-  <section class="hero">
-    <p class="eyebrow">chamados · ordens de serviço · tickets</p>
-    <h1 class="big-title">Da mensagem no grupo à <em>OS executada</em>. Sem etapas manuais.</h1>
-    <p class="lede">Sem tirar o morador do WhatsApp e sem o síndico digitar nada. A conversa do grupo vira ordem de serviço automaticamente.</p>
-    <div class="hero-ctas">
-      <button class="btn btn-primary btn-lg js-abrir-contato" type="button">Falar com a gente</button>
-      <a class="btn btn-ghost btn-lg" href="#acao">Ver em ação</a>
+  <section class="hero hero-split">
+    <div class="hero-copy">
+      <h1 class="big-title">Quantas reclamações do grupo do condomínio ficaram sem resposta esta semana?</h1>
+      <p class="lede">No ElevaChamados nenhuma se perde. O síndico recebe o aviso em particular, abre o chamado com um toque e o técnico assume pelo celular. Tudo fica com responsável, prazo e histórico.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-primary btn-lg js-abrir-contato" type="button">Falar com a gente</button>
+        <a class="hero-link" href="#como-funciona">Ver como funciona</a>
+      </div>
+      <p class="hero-note">Para condomínios, assistência técnica e suporte de TI.</p>
     </div>
-
-    <div class="hero-stage">
-      <div class="browser-card" role="img" aria-label="Painel web do ElevaChamados">
-        <div class="browser-chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="urlbar">app.elevachamados.com.br</span></div>
-        <div class="browser-body">
-          <div class="b-sidebar">
-            <div class="b-navitem active">Painel</div>
-            <div class="b-navitem">Em Aberto</div>
-            <div class="b-navitem">Em Andamento</div>
-            <div class="b-navitem">Resolvidos</div>
-          </div>
-          <div class="b-main">
-            <p class="b-hello">Boa tarde</p>
-            <div class="b-stats">
-              <div class="b-stat"><p class="num">3</p><p class="lbl">Abertos</p></div>
-              <div class="b-stat"><p class="num">2</p><p class="lbl">Ativas</p></div>
-              <div class="b-stat"><p class="num">0</p><p class="lbl">Pendentes</p></div>
-              <div class="b-stat"><p class="num">38</p><p class="lbl">Resolvidos</p></div>
-            </div>
-            <div class="b-chart">
-              <p class="lbl">Atendimento mensal</p>
-              <div class="b-bars"><span style="height:40%"></span><span style="height:65%"></span><span style="height:50%"></span><span style="height:85%"></span><span style="height:60%"></span><span style="height:100%"></span><span style="height:72%"></span></div>
-            </div>
-          </div>
+    <div class="hero-visual" role="img" aria-label="Uma reclamação no grupo de WhatsApp do condomínio e o alerta privado que o síndico recebe, com o menu para abrir o chamado">
+      <div class="hv-chat">
+        <div class="hv-chat-head"><p class="t">Edifício Aurora — Portaria</p><p class="s">42 participantes</p></div>
+        <div class="hv-chat-body">
+          <div class="hv-bubble" style="max-width:88%"><p class="who">Ana · apto 302</p>o interfone do bloco 2 tá sem sinal desde ontem à noite</div>
+          <div class="hv-bubble" style="max-width:62%"><p class="who">Carlos · apto 108</p>aqui tb tá mudo</div>
+          <p class="hv-note">O síndico não precisa responder aqui.</p>
+        </div>
+      </div>
+      <div class="hv-alert">
+        <p class="hv-alert-tag">Só o síndico vê isto, em particular</p>
+        <p class="hv-alert-title">Interfone do bloco 2 sem sinal</p>
+        <p class="hv-alert-meta">Edifício Aurora · relatado por Ana, apto 302</p>
+        <div class="hv-menu">
+          <div class="hv-opt is-picked"><b>1</b>Abrir chamado</div>
+          <div class="hv-opt"><b>2</b>Já sei, resolvendo</div>
+          <div class="hv-opt"><b>3</b>Ignorar</div>
         </div>
       </div>
     </div>
